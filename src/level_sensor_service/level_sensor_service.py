@@ -81,10 +81,8 @@ class LevelSensor_impl():
         # Read image from ros topic
         depth_array = self.ros_image_subscriber.get_latest_image()
         # print("depth_array is of type:", type(depth_array))
-        print(str(depth_array))
-
-        print(depth_array.shape)
-
+        # print(str(depth_array))
+        print("image h,w: ", depth_array.shape)
 
         depth_array_roi = depth_array[self.roi_y:self.roi_y+self.roi_h,self.roi_x:self.roi_x+self.roi_w]
         # print("depth_array_roi is of type:", type(depth_array_roi))
@@ -94,7 +92,10 @@ class LevelSensor_impl():
         print("avr_level: "+str(avr_level))
         print("low_level: "+str(self.low_level))
 
-        return avr_level <= self.low_level
+        if avr_level <= self.low_level:
+            return True
+        else:
+            return False
 
 def main():
     port_num = 9001
