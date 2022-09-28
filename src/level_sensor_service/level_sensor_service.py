@@ -65,6 +65,12 @@ class LevelSensor_impl():
         self.roi_w = self.params[0][2]
         self.roi_h = self.params[0][3]
         self.low_level = self.params[0][4] # mm
+
+        print("self.roi_x: " + str(self.roi_x))
+        print("self.roi_y: " + str(self.roi_y))
+        print("self.roi_w: " + str(self.roi_w))
+        print("self.roi_h: " + str(self.roi_h))
+        print("self.low_level: " + str(self.low_level))
         
         # Read image from ros topic
         self.ros_image_subscriber = ROS_image_subscriber(self.ros_topic)
@@ -77,6 +83,8 @@ class LevelSensor_impl():
         self.depth_array = self.ros_image_subscriber.get_latest_image()
         depth_array_roi = self.depth_array[int(self.roi_y):int(self.roi_y+self.roi_h),int(self.roi_x):int(self.roi_x+self.roi_w)]
         avr_level = np.mean(depth_array_roi)
+        print("avr_level: "+str(avr_level))
+        print("low_level: "+str(self.low_level))
 
         return avr_level <= self.low_level
 
