@@ -80,19 +80,23 @@ class LevelSensor_impl():
 
     # Returns ...
     def isLevelLow(self):
-        # Read image from ros topic
-        depth_array = self.ros_image_subscriber.get_latest_image()
-        # print("depth_array is of type:", type(depth_array))
-        # print(str(depth_array))
+        num_readings = 10
+        levels = np.zeros(num_readings,)
+
+        for i in range(num_readings):
+            # Read image from ros topic
+            depth_array = self.ros_image_subscriber.get_latest_image()
+
+            depth_array_roi = depth_array[self.roi_y:self.roi_y+self.roi_h,self.roi_x:self.roi_x+self.roi_w]    
+
+            levels[i] = np.mean(depth_array_roi)
+
         print("")
         print("image h,w: " + str(depth_array.shape))
-
-        depth_array_roi = depth_array[self.roi_y:self.roi_y+self.roi_h,self.roi_x:self.roi_x+self.roi_w]
-        # print("depth_array_roi is of type:", type(depth_array_roi))
-        # print(str(depth_array_roi))
         print("ROI image h,w: " + str(depth_array_roi.shape))
+        # print("Levels: " + str(levels))
 
-        avr_level = np.mean(depth_array_roi)
+        avr_level = np.mean(levels)
         print("avr_level: "+str(avr_level))
         print("low_level: "+str(self.low_level))
 
@@ -117,7 +121,7 @@ class LevelSensor_impl():
         print("")
         print("image h,w: " + str(depth_array.shape))
         print("ROI image h,w: " + str(depth_array_roi.shape))
-        print("Levels: " + str(levels))
+        # print("Levels: " + str(levels))
 
         avr_level = np.mean(levels)
         print("avr_level: "+str(avr_level))
