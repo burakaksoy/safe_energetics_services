@@ -186,6 +186,14 @@ source ~/.bashrc
 
 roslaunch azure_kinect_ros_driver kinect_rgbd.launch 
 rqt_image_view 
+
+sudo add-apt-repository ppa:robotraconteur/ppa
+sudo apt-get update
+sudo apt-get install python-robotraconteur
+sudo apt-get install python3-robotraconteur
+sudo apt install -y python-pip
+pip install pandas
+
 ```
 
 

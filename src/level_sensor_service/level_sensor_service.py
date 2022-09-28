@@ -60,11 +60,11 @@ class LevelSensor_impl():
         self.params = self.df.values.tolist()
 
         # Parse the parameters
-        self.roi_x = self.params[0]
-        self.roi_y = self.params[1]
-        self.roi_w = self.params[2]
-        self.roi_h = self.params[3]
-        self.low_level = self.params[4] # mm
+        self.roi_x = self.params[0][0]
+        self.roi_y = self.params[0][1]
+        self.roi_w = self.params[0][2]
+        self.roi_h = self.params[0][3]
+        self.low_level = self.params[0][4] # mm
         
         # Read image from ros topic
         self.ros_image_subscriber = ROS_image_subscriber(self.ros_topic)
