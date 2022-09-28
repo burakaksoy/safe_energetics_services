@@ -94,7 +94,7 @@ class LevelSensor_impl():
         print("")
         print("image h,w: " + str(depth_array.shape))
         print("ROI image h,w: " + str(depth_array_roi.shape))
-        # print("Levels: " + str(levels))
+        print("Levels: " + str(levels))
 
         avr_level = np.mean(levels)
         print("avr_level: "+str(avr_level))
@@ -121,7 +121,7 @@ class LevelSensor_impl():
         print("")
         print("image h,w: " + str(depth_array.shape))
         print("ROI image h,w: " + str(depth_array_roi.shape))
-        # print("Levels: " + str(levels))
+        print("Levels: " + str(levels))
 
         avr_level = np.mean(levels)
         print("avr_level: "+str(avr_level))
