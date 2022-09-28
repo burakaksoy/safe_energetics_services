@@ -103,7 +103,10 @@ class LevelSensor_impl():
 
     # Returns ...
     def isLevelHigh(self):
-        for i in range(5):
+        num_readings = 10
+        levels = np.zeros((1,num_readings))
+
+        for i in range(num_readings):
             # Read image from ros topic
             depth_array = self.ros_image_subscriber.get_latest_image()
             # print("depth_array is of type:", type(depth_array))
@@ -117,9 +120,12 @@ class LevelSensor_impl():
             print("ROI image h,w: " + str(depth_array_roi.shape))
 
             avr_level = np.mean(depth_array_roi)
+            levels[0,i] = avr_level
             print("avr_level: "+str(avr_level))
             print("high_level: "+str(self.high_level))
 
+        print(str(levels))
+        
         if avr_level <= self.high_level:
             return True
         else:
