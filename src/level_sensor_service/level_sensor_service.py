@@ -82,11 +82,11 @@ class LevelSensor_impl():
         depth_array = self.ros_image_subscriber.get_latest_image()
         # print("depth_array is of type:", type(depth_array))
         # print(str(depth_array))
-        print("image h,w: ", depth_array.shape)
+        # print("image h,w: ", depth_array.shape)
 
         depth_array_roi = depth_array[self.roi_y:self.roi_y+self.roi_h,self.roi_x:self.roi_x+self.roi_w]
         # print("depth_array_roi is of type:", type(depth_array_roi))
-        print(str(depth_array_roi))
+        # print(str(depth_array_roi))
 
         avr_level = np.mean(depth_array_roi)
         print("avr_level: "+str(avr_level))
