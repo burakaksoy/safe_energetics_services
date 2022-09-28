@@ -5,15 +5,9 @@ PASSWORDS=("1234" "1234" "1234" )
 
 SCRIPTS=("  
             source ~/catkin_ws_kinect/src/safe_energetics_services/env_scripts/env_jetson_silver.sh;
-            source ~/.bashrc; 
-            sleep 1s;
-            roslaunch azure_kinect_ros_driver kinect_rgbd.launch;
             "
           
         "   source ~/catkin_ws_kinect/src/safe_energetics_services/env_scripts/env_jetson_blue.sh;
-            source ~/.bashrc; 
-            sleep 1s;
-            roslaunch azure_kinect_ros_driver kinect_rgbd.launch;
             "
           
           "cd ~")
