@@ -1,7 +1,7 @@
 #!/bin/bash
-HOSTS=("192.168.1.99" "192.168.1.100" "192.168.1.101" "192.168.1.102" "192.168.1.90")
-USERNAMES=("tablet" "razer" "oarbot_silver" "oarbot_blue" "nuc" )
-PASSWORDS=("1234" "1234" "1234" "1234" "1234")
+HOSTS=("192.168.1.140" "192.168.1.142" "192.168.1.216")
+USERNAMES=("jetson_silver" "jetson_blue" "TODO")
+PASSWORDS=("1234" "1234" "1234" )
 
 SCRIPTS=(
     ############### TABLET ##############

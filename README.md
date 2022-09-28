@@ -8,14 +8,21 @@ This is a repository for RR services of Safe Energetics Project developed at RPI
 | Wrist Processing Unit   | jetson_blue   | jetson-blue-TX2          | 192.168.1.142  | 1234      | Ubuntu 18.04 | Melodic |
 | Main Computer           | TODO          | TODO                     | 192.168.1.TODO | 1234      | Ubuntu 18.04 | Melodic |
 
+# Services in this repo:
+See the [Google Spread Sheet](https://docs.google.com/spreadsheets/d/1GMHnYxGyz_-tMLc_K31-ffkf04ia8cOPVsDdQlc0iIg/edit?usp=sharing) for details.
+
 # Setting up the system
 
 First follow the steps under title "Setting Up NVIDIA Jetson TX2 Devices with ROS and Kinect Azure" to prepare the hardware for using with this repo's software.
+
+DO NOT USE THIS COMMAND YET !!!!!
 
 After the hardware is setup, simply run
 ```
 ./all_devices_initial_setup.bash
 ```
+
+DO NOT USE THIS COMMAND YET !!!!!
 
 # Setting Up NVIDIA Jetson TX2 Devices with ROS and Kinect Azure
 

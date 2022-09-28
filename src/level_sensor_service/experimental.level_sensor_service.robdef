@@ -1,0 +1,9 @@
+#Service to provide interface to level_sensor_service
+service experimental.level_sensor_service
+
+stdver 0.10
+
+object LevelSensor
+    # Returns true if hopper needs material
+    function bool isLevelLow()
+end

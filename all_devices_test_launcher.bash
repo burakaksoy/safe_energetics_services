@@ -3,14 +3,20 @@ HOSTS=("192.168.1.140" "192.168.1.142" "192.168.1.216")
 USERNAMES=("jetson_silver" "jetson_blue" "TODO")
 PASSWORDS=("1234" "1234" "1234" )
 
-SCRIPTS=("cd ~/catkin_ws_kinect/src/safe_energetics_services; 
-          git reset --hard; git pull;"
+SCRIPTS=("  
+            source ~/catkin_ws_kinect/src/safe_energetics_services/env_scripts/env_jetson_silver.sh;
+            source ~/.bashrc; 
+            sleep 1s;
+            roslaunch azure_kinect_ros_driver kinect_rgbd.launch;
+            "
           
-          "cd ~/catkin_ws_kinect/src/safe_energetics_services; 
-          git reset --hard; git pull;"
+        "   source ~/catkin_ws_kinect/src/safe_energetics_services/env_scripts/env_jetson_blue.sh;
+            source ~/.bashrc; 
+            sleep 1s;
+            roslaunch azure_kinect_ros_driver kinect_rgbd.launch;
+            "
           
-          "cd ~/catkin_ws_kinect/src/safe_energetics_services; 
-          git reset --hard; git pull;")
+          "cd ~")
 for i in ${!HOSTS[*]} ; do
     echo "------------"
     # echo ${HOSTS[i]}
