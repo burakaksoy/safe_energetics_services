@@ -5,7 +5,9 @@ from RobotRaconteur.Client import *
 #Main program
 def main():
 
-    url='rr+tcp://localhost:9001/?service=LevelSensor'
+    # url='rr+tcp://localhost:9001/?service=LevelSensor'
+    url='rr+tcp://192.168.1.140:9001/?service=LevelSensor'
+
     #Start up Robot Raconteur and connect, standard by this point    
     c = RRN.ConnectService(url)
 
@@ -14,6 +16,12 @@ def main():
         print("Hopper level is LOW")
     else:
         print("Hopper level is GOOD")
+
+    level_high = c.isLevelHigh()
+    if level_high:
+        print("Hopper level is HIGH")
+    else:
+        print("Hopper level is not HIGH, more material can be added")
 
 
 if __name__ == '__main__':

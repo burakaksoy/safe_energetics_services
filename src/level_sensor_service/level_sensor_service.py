@@ -65,18 +65,20 @@ class LevelSensor_impl():
         self.roi_w = self.params[0][2]
         self.roi_h = self.params[0][3]
         self.low_level = self.params[0][4] # mm
+        self.high_level = self.params[0][5] # mm
 
         print("roi_x: " + str(self.roi_x))
         print("roi_y: " + str(self.roi_y))
         print("roi_w: " + str(self.roi_w))
         print("roi_h: " + str(self.roi_h))
         print("low_level: " + str(self.low_level))
+        print("high_level: " + str(self.high_level))
         
         # Read image from ros topic
         self.ros_image_subscriber = ROS_image_subscriber(self.ros_topic)
 
 
-    # Returns the number of cups in the image
+    # Returns ...
     def isLevelLow(self):
         # Read image from ros topic
         depth_array = self.ros_image_subscriber.get_latest_image()
@@ -94,7 +96,30 @@ class LevelSensor_impl():
         print("avr_level: "+str(avr_level))
         print("low_level: "+str(self.low_level))
 
-        if avr_level <= self.low_level:
+        if avr_level >= self.low_level:
+            return True
+        else:
+            return False
+
+    # Returns ...
+    def isLevelHigh(self):
+        # Read image from ros topic
+        depth_array = self.ros_image_subscriber.get_latest_image()
+        # print("depth_array is of type:", type(depth_array))
+        # print(str(depth_array))
+        print("")
+        print("image h,w: " + str(depth_array.shape))
+
+        depth_array_roi = depth_array[self.roi_y:self.roi_y+self.roi_h,self.roi_x:self.roi_x+self.roi_w]
+        # print("depth_array_roi is of type:", type(depth_array_roi))
+        # print(str(depth_array_roi))
+        print("ROI image h,w: " + str(depth_array_roi.shape))
+
+        avr_level = np.mean(depth_array_roi)
+        print("avr_level: "+str(avr_level))
+        print("high_level: "+str(self.high_level))
+
+        if avr_level <= self.high_level:
             return True
         else:
             return False

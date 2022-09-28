@@ -6,4 +6,7 @@ stdver 0.10
 object LevelSensor
     # Returns true if hopper needs material
     function bool isLevelLow()
+
+    # Returns true if hopper does not need material
+    function bool isLevelHigh()
 end
