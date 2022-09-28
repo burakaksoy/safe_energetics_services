@@ -11,5 +11,6 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROS_WS
 export DISPLAY=:0 # For Kinect remote launch
 
 killall gnome-terminal-server
+sleep 1s
 gnome-terminal --display=:0 --command "bash -c \"source ~/.bashrc; roslaunch azure_kinect_ros_driver kinect_rgbd.launch; exec bash\""
 exec "$@"
