@@ -65,7 +65,7 @@ class DepthPointSelector:
         cv2.namedWindow(self.window_name, cv2.WINDOW_NORMAL)
         cv2.resizeWindow(self.window_name, self.window_size[0], self.window_size[1])
 
-        self.depth_array = ros_image_subscriber.get_latest_image()
+        self.depth_array = self.ros_image_subscriber.get_latest_image()
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         self.depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(self.depth_array, alpha=self.desired_alpha), cv2.COLORMAP_JET)

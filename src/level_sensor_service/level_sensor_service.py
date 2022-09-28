@@ -66,22 +66,25 @@ class LevelSensor_impl():
         self.roi_h = self.params[0][3]
         self.low_level = self.params[0][4] # mm
 
-        print("self.roi_x: " + str(self.roi_x))
-        print("self.roi_y: " + str(self.roi_y))
-        print("self.roi_w: " + str(self.roi_w))
-        print("self.roi_h: " + str(self.roi_h))
-        print("self.low_level: " + str(self.low_level))
+        print("roi_x: " + str(self.roi_x))
+        print("roi_y: " + str(self.roi_y))
+        print("roi_w: " + str(self.roi_w))
+        print("roi_h: " + str(self.roi_h))
+        print("low_level: " + str(self.low_level))
         
         # Read image from ros topic
         self.ros_image_subscriber = ROS_image_subscriber(self.ros_topic)
-        self.depth_array = None
 
 
     # Returns the number of cups in the image
     def isLevelLow(self):
         # Read image from ros topic
-        self.depth_array = self.ros_image_subscriber.get_latest_image()
-        depth_array_roi = self.depth_array[int(self.roi_y):int(self.roi_y+self.roi_h),int(self.roi_x):int(self.roi_x+self.roi_w)]
+        depth_array = self.ros_image_subscriber.get_latest_image()
+        print("depth_array is of type:", type(depth_array))
+
+        depth_array_roi = depth_array[int(self.roi_y):int(self.roi_y+self.roi_h),int(self.roi_x):int(self.roi_x+self.roi_w)]
+        print("depth_array_roi is of type:", type(depth_array_roi))
+
         avr_level = np.mean(depth_array_roi)
         print("avr_level: "+str(avr_level))
         print("low_level: "+str(self.low_level))
