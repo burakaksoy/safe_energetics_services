@@ -83,9 +83,7 @@ class LevelSensor_impl():
         # print("depth_array is of type:", type(depth_array))
         print(str(depth_array))
 
-        h, w, _ = depth_array.shape
-        print('width: ', w)
-        print('height:', h)
+        print(depth_array.shape)
 
 
         depth_array_roi = depth_array[self.roi_y:self.roi_y+self.roi_h,self.roi_x:self.roi_x+self.roi_w]
