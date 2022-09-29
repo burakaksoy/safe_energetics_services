@@ -1,0 +1,10 @@
+#Service to provide interface to cup_detector_service
+service experimental.cup_detector_service
+
+stdver 0.10
+
+
+object CupDetector
+    # returns the list of int as places of the cups
+    function int32{list} getCupLocations()
+end
