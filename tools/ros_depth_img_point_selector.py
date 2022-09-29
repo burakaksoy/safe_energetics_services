@@ -107,7 +107,7 @@ class DepthPointSelector:
 
 # driver function
 if __name__=="__main__":
-    file_name = "./depth_points_lid_off.csv"
+    file_name = "./depth_points.csv"
     ros_topic = "/depth_to_rgb/hw_registered/image_rect_raw" #RGB version: "/rgb/image_rect_color" 
     
     ros_image_subscriber = ROS_image_subscriber(ros_topic)
