@@ -70,6 +70,8 @@ class CupDetector_impl():
 
 
     def getCupLocations(self):
+        print("New getCupLocation request!")
+
         cup_locations = []
         
         num = 10
@@ -95,7 +97,7 @@ class CupDetector_impl():
             else:
                 print("(" + str((x,y))+ ") could not be found at desired depth: " + str(desired_depth) + "mm. Depth is:" + str(depth_array[y,x]) + " mm.\n")
 
-        print("Detectec cup locations: ")
+        print("Detected cup locations: ")
         print(str(cup_locations))
 
         return cup_locations
@@ -104,7 +106,7 @@ def main():
     port_num = 9002
     parameter_file = "./cup_detector_service.csv"
     ros_topic = "/depth_to_rgb/hw_registered/image_rect_raw" #RGB version: "/rgb/image_rect_color"
-    depth_tolerance = 3 #mm
+    depth_tolerance = 5 #mm
 
     # RR.ServerNodeSetup("NodeName", TCP listen port, optional set of flags as parameters)
     with RR.ServerNodeSetup("experimental.cup_detector_service", port_num) as node_setup:
