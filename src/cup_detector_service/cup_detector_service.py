@@ -82,9 +82,10 @@ class CupDetector_impl():
 
         itr = -1
         for point in self.depth_points:
+            print(str(point))
             itr = itr + 1
-            x = point[0]
-            y = point[1]
+            x = int(point[0])
+            y = int(point[1])
             desired_depth = point[2]
 
             max_depth = (desired_depth + self.depth_tolerance)
