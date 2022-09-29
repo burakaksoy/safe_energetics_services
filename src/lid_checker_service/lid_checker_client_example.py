@@ -23,5 +23,11 @@ def main():
     else:
         print("Lid IS NOT ON the cup")
 
+    grasped_correctly = c.isGraspedCorrectly()
+    if grasped_correctly:
+        print("Cup is grasped correctly")
+    else:
+        print("Cup is NOT grasped correctly")
+
 if __name__ == '__main__':
     main()

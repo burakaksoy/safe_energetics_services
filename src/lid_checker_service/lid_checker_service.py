@@ -68,6 +68,10 @@ class LidChecker_impl():
         self.y_on = self.params[1][1]
         self.depth_on = self.params[1][2]
 
+        self.x_cup = self.params[2][0]
+        self.y_cup = self.params[2][1]
+        self.depth_cup = self.params[2][2]
+
         print("Depth tolerance: "+str(self.depth_tolerance))
 
         print("Lid off parameters:")
@@ -80,6 +84,11 @@ class LidChecker_impl():
         print("y_on: " + str(self.y_on))
         print("depth_on: " + str(self.depth_on))
         
+        print("Cup body parameters:")
+        print("x_cup: " + str(self.x_cup))
+        print("y_cup: " + str(self.y_cup))
+        print("depth_cup: " + str(self.depth_cup))
+
         # Read image from ros topic
         self.ros_image_subscriber = ROS_image_subscriber(self.ros_topic)
 
@@ -134,12 +143,37 @@ class LidChecker_impl():
         else:
             return False
 
+    # Returns ...
+    def isGraspedCorrectly(self):
+        num_readings = 10
+        levels = np.zeros(num_readings,)
+
+        for i in range(num_readings):
+            # Read image from ros topic
+            depth_array = self.ros_image_subscriber.get_latest_image()
+            levels[i] = depth_array[self.y_cup,self.x_cup]    
+
+        print("")
+        print("image h,w: " + str(depth_array.shape))
+        print("Levels: " + str(levels))
+
+        avr_level = np.mean(levels)
+        print("avr_level: "+str(avr_level))
+        print("depth_cup_level: " + str(self.depth_cup))
+
+        max_depth = (self.depth_cup + self.depth_tolerance)
+        min_depth = (self.depth_cup - self.depth_tolerance)
+        if (avr_level <= max_depth) and (avr_level >= min_depth):
+            return True
+        else:
+            return False
+
 
 def main():
     port_num = 9004
     parameter_file = "./lid_checker_service.csv"
     ros_topic = "/depth_to_rgb/hw_registered/image_rect_raw" #RGB version: "/rgb/image_rect_color"
-    depth_tolerance = 5 #mm
+    depth_tolerance = 3 #mm
 
     # RR.ServerNodeSetup("NodeName", TCP listen port, optional set of flags as parameters)
     with RR.ServerNodeSetup("experimental.lid_checker_service", port_num) as node_setup:

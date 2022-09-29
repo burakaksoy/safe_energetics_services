@@ -9,4 +9,7 @@ object LidChecker
 
     # Returns true if ...
     function bool isLidOn()
+
+    # Returns true if ...
+    function bool isGraspedCorrectly()
 end
