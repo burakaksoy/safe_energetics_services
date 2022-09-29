@@ -17,4 +17,6 @@ sleep 10s #let kinect to start
 gnome-terminal --display=:0 --command "bash -c \"source ~/.bashrc; cd ~/catkin_ws_kinect/src/safe_energetics_services/src/lid_checker_service; python lid_checker_service.py; exec bash\""
 sleep 1s
 gnome-terminal --display=:0 --command "bash -c \"source ~/.bashrc; cd ~/catkin_ws_kinect/src/safe_energetics_services/src/cup_detector_service; python cup_detector_service.py; exec bash\""
+sleep 1s
+gnome-terminal --display=:0 --command "bash -c \"source ~/.bashrc; cd ~/catkin_ws_kinect/src/safe_energetics_services/src/place_detector_service; python place_detector_service.py; exec bash\""
 exec "$@"

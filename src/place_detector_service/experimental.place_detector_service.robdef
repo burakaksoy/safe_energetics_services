@@ -1,0 +1,10 @@
+#Service to provide interface to place_detector_service
+service experimental.place_detector_service
+
+stdver 0.10
+
+
+object PlaceDetector
+    # returns the list of int as available places to put the cups
+    function int32{list} getAvailableLocations()
+end
