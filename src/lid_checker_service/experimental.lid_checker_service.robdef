@@ -1,0 +1,12 @@
+#Service to provide interface to lid_checker_service
+service experimental.lid_checker_service
+
+stdver 0.10
+
+object LidChecker
+    # Returns true if ...
+    function bool isLidOff()
+
+    # Returns true if ...
+    function bool isLidOn()
+end
