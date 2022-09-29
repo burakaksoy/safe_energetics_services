@@ -61,6 +61,8 @@ class CupDetector_impl():
         self.depth_points = self.df.values.tolist()
 
         print("Depth tolerance: "+str(self.depth_tolerance))
+        print("Cup Desired Points: ")
+        print(str(self.depth_points))
         
         # Read image from ros topic
         self.ros_image_subscriber = ROS_image_subscriber(self.ros_topic)
@@ -88,9 +90,12 @@ class CupDetector_impl():
             max_depth = (desired_depth + self.depth_tolerance)
             min_depth = (desired_depth - self.depth_tolerance)
             if (depth_array[y,x] <= max_depth) and (depth_array[y,x] >= min_depth):
-                self.cup_locations.append(itr)
+                cup_locations.append(itr)
             else:
                 print("(" + str((x,y))+ ") could not be found at desired depth: " + str(desired_depth) + "mm. Depth is:" + str(depth_array[y,x]) + " mm.\n")
+
+        print("Detectec cup locations: ")
+        print(str(cup_locations))
 
         return cup_locations
 
