@@ -105,7 +105,7 @@ class PlaceDetector_impl():
             location = available_locations_all.pop(0)
             if (location % 2) == 0:
                 if (location + 1) in available_locations_all:
-                    idx = available_locations_all(location+1)
+                    idx = available_locations_all.index(location+1)
                     available_locations.append(available_locations_all.pop(idx))
                 available_locations.append(location)
 
