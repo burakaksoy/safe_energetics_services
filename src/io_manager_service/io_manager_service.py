@@ -87,7 +87,7 @@ class IOManager_impl():
         return self.hopper.isLidClosed()
 
     def isHopperPressureGood(self):
-        return self.hopper.PressureGood()
+        return self.hopper.isPressureGood()
 
 
     def lockGate(self):
