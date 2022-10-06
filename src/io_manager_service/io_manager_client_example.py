@@ -57,6 +57,7 @@ def main():
     c.lockGate()
     time.sleep(1)
     print("is gate locked? Answer: " +  str(c.isGateLocked()))
+    print("Attempting to unlock the gate")
     c.unlockGate()
     time.sleep(1)
     print("is gate Locked? Answer: " +  str(c.isGateLocked()))
