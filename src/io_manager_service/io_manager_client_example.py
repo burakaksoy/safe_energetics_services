@@ -2,6 +2,8 @@
 #This program ...
 from RobotRaconteur.Client import *
 
+import time
+
 #Main program
 def main():
 
@@ -13,21 +15,25 @@ def main():
 
     print("Attempting to open  the gripper")
     c.openGripper()
+    time.sleep(1)
     print("is gripper open? Answer: " +  str(c.isGripperOpen()))
     print("is gripper closed? Answer: " +  str(c.isGripperClosed()))
 
     print("Attempting to close the gripper")
     c.closeGripper()
+    time.sleep(1)
     print("is gripper open? Answer: " +  str(c.isGripperOpen()))
     print("is gripper closed? Answer: " +  str(c.isGripperClosed()))
 
     print("Attempting to open the cabinet Robo Door")
     c.openCabinetRoboDoor()
+    time.sleep(1)
     print("is Cabinet Robo Door open? Answer: " +  str(c.isCabinetRoboDoorOpen()))
     print("is Cabinet robo door closed? Answer: " +  str(c.isCabinetRoboDoorClosed()))
 
     print("Attempting to close the cabinet Robo Door")
     c.closeCabinetRoboDoor()
+    time.sleep(1)
     print("is Cabinet Robo Door open? Answer: " +  str(c.isCabinetRoboDoorOpen()))
     print("is Cabinet robo door closed? Answer: " +  str(c.isCabinetRoboDoorClosed()))
 
@@ -35,11 +41,13 @@ def main():
 
     print("Attempting to open the hopper Lid")
     c.openHopperLid()
+    time.sleep(1)
     print("is Hopper lid open? Answer: " +  str(c.isHopperLidOpen()))
     print("is Hopper lid closed? Answer: " +  str(c.isHopperLidClosed()))
 
     print("Attempting to close the hopper Lid")
     c.closeHopperLid()
+    time.sleep(1)
     print("is Hopper lid open? Answer: " +  str(c.isHopperLidOpen()))
     print("is Hopper lid closed? Answer: " +  str(c.isHopperLidClosed()))
 
@@ -47,8 +55,10 @@ def main():
 
     print("Attempting to lock the gate")
     c.lockGate()
+    time.sleep(1)
     print("is gate locked? Answer: " +  str(c.isGateLocked()))
     c.unlockGate()
+    time.sleep(1)
     print("is gate Locked? Answer: " +  str(c.isGateLocked()))
     print("is gate Closed? Answer: " +  str(c.isGateClosed()))
     
