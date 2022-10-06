@@ -1,0 +1,49 @@
+#Service to provide interface to io_manager_service
+service experimental.io_manager_service
+
+stdver 0.10
+
+object IOManager
+    # requests the IO module to open the gripper
+    function void openGripper()
+    # returns true if sensor 1 is sensing but sensor 2 is not sensing. false otherwise
+    function bool isGripperOpen()
+    # requests the IO module to close the gripper
+    function void closeGripper()
+    # returns true if sensor 2 is sensing but sensor 1 is not sensing. false otherwise
+    function bool isGripperClosed()
+
+    # requests the IO module to open the cabinet robot door
+    function void openCabinetRoboDoor()
+    # returns true only if both the cabinet robot door sensors are not sensing the door. false otherwise
+    function bool isCabinetRoboDoorOpen()
+    # requests the IO module to close the cabinet door
+    function void closeCabinetRoboDoor()
+    # returns true if both the cabinet robot door sensors are sensing the door. False otherwise
+    function bool isCabinetRoboDoorClosed()
+    # returns true if operator cabinet door is closed. false if it is open
+    function bool isCabinetOpDoorClosed()
+    
+    # requests the IO module to open the hopper lid
+    function void openHopperLid()
+    # returns true if both the hopper lid sensors not sensing gate
+    function bool isHopperLidOpen()
+    # requests the IO module to close the hopper lid
+    function void closeHopperLid()
+    # returns true if both the hopper lid sensors sensing gate
+    function bool isHopperLidClosed()
+    # returns true if hopper pressure above a threshold
+    function bool isHopperPressureGood()
+    
+    # requests the IO module to lock the gate
+    function void lockGate()
+    # returns true if the lock is requested, returns false if the unlock is requested
+    function bool isGateLocked()
+    # requests the IO module to unlock the gate
+    function void unlockGate()
+    # returns true if the gate is closed, false if the gate is open
+    function bool isGateClosed()
+    
+    # returns true if the emergency button is hit
+    function bool isEmergency()
+end
