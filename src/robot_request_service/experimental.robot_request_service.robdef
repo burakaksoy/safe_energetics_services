@@ -1,0 +1,29 @@
+#Service to provide interface to robot_request_service
+service experimental.robot_request_service
+
+stdver 0.10
+
+object RobotRequest
+    # returns the last requested function to robot as a string 
+    # function string getLastRequest()
+    # # return true if the last request is completed successfully
+    # # if true, we can come up with a recovery routine in case of emergency
+    # # if false, the robot needs manual jogging 
+    # function bool isLastRequestSuccessful()
+
+    # # requests to 
+    # function void goHome()
+
+    # function void goCabinetUpper()
+
+    # function void goCabinetUpperPlace(int32 cabinet_upper_place)
+
+    # function void goBackCabinetUpperFrom(int32 cabinet_upper_place)
+
+
+
+    # function void RemoveCupLid()
+
+
+
+end

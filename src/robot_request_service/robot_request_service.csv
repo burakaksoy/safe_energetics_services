@@ -1,0 +1,11 @@
+name,pin
+"gripperSensorOpen","DI16"
+"gripperSensorClosed","DI15"
+"roboDoorSensorUp","DI14"
+"roboDoorSensorDown","DI13"
+"opDoorSensor","DI12"
+"hopperLidSensorUp","DI11"
+"hopperLidSensorDown","DI10"
+"hopperPressureSensor","DI9"
+"gateSensor","DI8"
+"emergency","DI7"
