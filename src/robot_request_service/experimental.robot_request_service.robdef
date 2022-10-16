@@ -4,30 +4,30 @@ service experimental.robot_request_service
 stdver 0.10
 
 object RobotRequest
-    # Main function used in other functions of this API
+    # Main function used in other functions of this API, safely jogs robot to desired waypoint
     function void jog_to(string target)
 
-    # requests to go home position
+    # requests to go to home position ("J_HOME")
     function void go2Home()
     
-    # requests to go
+    # requests to go to upper shelf of the cabinet ("CU_0")
     function void go2CabinetUpper()
-    # requests to go
+    # requests to go to one of cup locations in upper shelf of the cabinet
     function void go2Cup(int32 place)
 
-    # requests to go
+    # requests to go to lid remover ("UNC_0")
     function void go2LidRemover()
-    # requests to 
+    # requests to remove the cup lid ("UNC_3")
     function void RemoveCupLid()
 
-    # requests to go
+    # requests to go Hopper ("H_0")
     function void go2Hopper()
-    # requests to 
+    # requests to pour the material ("H_3")
     function void PourMaterial()
 
-    # requests to go
+    # requests to go to Cabinet lower shelf ("CL_0")
     function void go2CabinetLower()
-    # requests to go
+    # requests to go to specified place in cabinet lower shelf
     function void go2Place(int32 place)
 
 end
