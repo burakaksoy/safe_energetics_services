@@ -4,26 +4,30 @@ service experimental.robot_request_service
 stdver 0.10
 
 object RobotRequest
-    # returns the last requested function to robot as a string 
-    # function string getLastRequest()
-    # # return true if the last request is completed successfully
-    # # if true, we can come up with a recovery routine in case of emergency
-    # # if false, the robot needs manual jogging 
-    # function bool isLastRequestSuccessful()
+    # Main function used in other functions of this API
+    function void jog_to(string target)
 
-    # # requests to 
-    # function void goHome()
+    # requests to go home position
+    function void go2Home()
+    
+    # requests to go
+    function void go2CabinetUpper()
+    # requests to go
+    function void go2Cup(int32 place)
 
-    # function void goCabinetUpper()
+    # requests to go
+    function void go2LidRemover()
+    # requests to 
+    function void RemoveCupLid()
 
-    # function void goCabinetUpperPlace(int32 cabinet_upper_place)
+    # requests to go
+    function void go2Hopper()
+    # requests to 
+    function void PourMaterial()
 
-    # function void goBackCabinetUpperFrom(int32 cabinet_upper_place)
-
-
-
-    # function void RemoveCupLid()
-
-
+    # requests to go
+    function void go2CabinetLower()
+    # requests to go
+    function void go2Place(int32 place)
 
 end
