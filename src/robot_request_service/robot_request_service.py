@@ -22,8 +22,8 @@ class RobotRequest_impl():
         self.robot_url = robot_url
 
         # Create motion program client
-        # self.mot_prog_client = MotionProgramExecClient(base_url=self.robot_url)
-        self.mot_prog_client = MotionProgramExecClient() # for simulation
+        self.mot_prog_client = MotionProgramExecClient(base_url=self.robot_url)
+        # self.mot_prog_client = MotionProgramExecClient() # for simulation
         # Create robot tool data
         self.tool0 = tooldata(True,pose([5.5,0,270.7],[1,0,0,0]),loaddata(0.001,[0,0,0.001],[1,0,0,0],0,0,0))   
         # Create robotics toolbox robot
@@ -412,7 +412,8 @@ class RobotRequest_impl():
         log_results_str = log_results.decode('ascii')
         # print(log_results_str)
 
-        current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
+        # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
+        current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
         current_joints = [float(x) for x in current_joints_str]
         # print("current_joint angles: " + str(current_joints) + " deg.")
 
@@ -438,11 +439,12 @@ class RobotRequest_impl():
         second = None
         second_dist = None
 
-        # calculate current pose from current joint angles
-        cur_q = self._get_current_joint_angles() # deg
-        cur_q = np.deg2rad(cur_q) # rad
+        # # calculate current pose from current joint angles
+        # cur_q = self._get_current_joint_angles() # deg
+        # cur_q = np.deg2rad(cur_q) # rad
 
         cur_p = self._get_current_pose().p
+        # print("cur_p: " + str(cur_p))
 
         # compare the current pose with the defined waypoint poses
         for wayp_name, wayp_p, wayp_quat in zip(self.g.vs["name"],self.g.vs["pos"],self.g.vs["quat"]):
@@ -483,8 +485,10 @@ class RobotRequest_impl():
         # Returns the name of the jogged nearest waypoint
 
         nearest_wayp = self._get_nearest_two_waypoint_name()[0] # string
+        # print("nearest_wayp: " + nearest_wayp)
         mp = MotionProgram(tool=self.tool0)
         mp.MoveJ(eval("self." + nearest_wayp),v100,fine)
+        # print(mp.get_program_rapid())
         log_results = self.mot_prog_client.execute_motion_program(mp)
         return nearest_wayp
 
@@ -498,6 +502,7 @@ class RobotRequest_impl():
             for cmd in motion_code:
                 eval(cmd)
             # Execute the generated motion code
+            # print(mp.get_program_rapid())
             log_results = self.mot_prog_client.execute_motion_program(mp)
 
     def go2Home(self):

@@ -194,8 +194,8 @@ def main():
 
     print(mp.get_program_rapid())
 
-    # client = MotionProgramExecClient(base_url='http://192.168.55.1:80')
-    client = MotionProgramExecClient()
+    client = MotionProgramExecClient(base_url='http://192.168.55.1:80')
+    # client = MotionProgramExecClient()
     log_results = client.execute_motion_program(mp)
 
     # # Write log csv to file
