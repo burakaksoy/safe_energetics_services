@@ -18,7 +18,7 @@ def main():
     get_input()
     c.go2Home()
 
-    for i in range(12):
+    for i in range(1):
         print("About to start: go2CabinetUpper")
         get_input()
         c.go2CabinetUpper()
@@ -47,7 +47,7 @@ def main():
     get_input()
     c.PourMaterial() 
 
-    for i in range(12):
+    for i in range(1):
         print("About to start: go2CabinetLower")
         get_input()
         c.go2CabinetLower()

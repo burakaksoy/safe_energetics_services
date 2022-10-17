@@ -493,11 +493,12 @@ class RobotRequest_impl():
         nearest_wayp = self._jog_to_nearest_waypoint()
         # Then jogs robot to desired target point with the waypoints
         motion_code = self._generate_motion_primitive_code(nearest_wayp,target)
-        mp = MotionProgram(tool=self.tool0)
-        for cmd in motion_code:
-            eval(cmd)
-        # Execute the generated motion code
-        log_results = self.mot_prog_client.execute_motion_program(mp)
+        if len(motion_code) > 0:
+            mp = MotionProgram(tool=self.tool0)
+            for cmd in motion_code:
+                eval(cmd)
+            # Execute the generated motion code
+            log_results = self.mot_prog_client.execute_motion_program(mp)
 
     def go2Home(self):
         target = "J_HOME" 
