@@ -413,7 +413,8 @@ class RobotRequest_impl():
         # print(log_results_str)
 
         # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
-        current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
+        # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
+        current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:8]
         current_joints = [float(x) for x in current_joints_str]
         # print("current_joint angles: " + str(current_joints) + " deg.")
 
