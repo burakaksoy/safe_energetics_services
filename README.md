@@ -4,9 +4,9 @@ This is a repository for RR services of Safe Energetics Project developed at RPI
 
 | Description             | Username      | Hostname (Computer Name) | IP             | Password  | OS           | ROS     |
 | ---                     | ---           | ---                      | ---            | ---       | ---          | ---     |
-| Hopper Processing Unit  | jetson_silver | jetson-silver-TX2        | 192.168.1.140  | 1234      | Ubuntu 18.04 | Melodic |
-| Wrist Processing Unit   | jetson_blue   | jetson-blue-TX2          | 192.168.1.142  | 1234      | Ubuntu 18.04 | Melodic |
-| Main Computer           | TODO          | TODO                     | 192.168.1.TODO | 1234      | Ubuntu 18.04 | Melodic |
+| Hopper Processing Unit  | jetson_silver | jetson-silver-TX2        | 192.168.55.10 ~~192.168.1.140~~  | 1234      | Ubuntu 18.04 | Melodic |
+| Wrist Processing Unit   | jetson_blue   | jetson-blue-TX2          | 192.168.55.11 ~~192.168.1.142~~  | 1234      | Ubuntu 18.04 | Melodic |
+| Main Computer           | TODO          | TODO                     | 192.168.55.2 | TODO      | Ubuntu 18.04 | Melodic |
 
 # Services in this repo:
 See the [Google Spread Sheet](https://docs.google.com/spreadsheets/d/1GMHnYxGyz_-tMLc_K31-ffkf04ia8cOPVsDdQlc0iIg/edit?usp=sharing) for details.
