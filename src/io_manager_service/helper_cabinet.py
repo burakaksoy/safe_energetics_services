@@ -16,7 +16,7 @@ class Cabinet(object):
         pin = self.inputs['roboDoorSensorDown']
         SensorDownState = bool(self.rapid.get_digital_io(pin))
 
-        if (not SensorUpState) & (not SensorDownState):
+        if (SensorUpState) & (not SensorDownState):
             return True
         else:
             return False
@@ -33,7 +33,7 @@ class Cabinet(object):
         pin = self.inputs['roboDoorSensorDown']
         SensorDownState = bool(self.rapid.get_digital_io(pin))
 
-        if (SensorUpState) & (SensorDownState):
+        if (not SensorUpState) & (SensorDownState):
             return True
         else:
             return False

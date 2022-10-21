@@ -16,7 +16,7 @@ class Hopper(object):
         pin = self.inputs['hopperLidSensorDown']
         SensorDownState = bool(self.rapid.get_digital_io(pin))
 
-        if (not SensorUpState) & (not SensorDownState):
+        if (SensorUpState) & (not SensorDownState):
             return True
         else:
             return False
@@ -33,13 +33,14 @@ class Hopper(object):
         pin = self.inputs['hopperLidSensorDown']
         SensorDownState = bool(self.rapid.get_digital_io(pin))
 
-        if (SensorUpState) & (SensorDownState):
+        if (not SensorUpState) & (SensorDownState):
             return True
         else:
             return False
 
     def isPressureGood(self):
         pin = self.inputs['hopperPressureSensor']
-        return bool(self.rapid.get_digital_io(pin))
+        # return bool(self.rapid.get_digital_io(pin))
+        return True # temporary, change later
 
         

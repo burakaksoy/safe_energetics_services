@@ -1,8 +1,8 @@
 name,pin
-"gripper1","DO16"
-"gripper2","DO15"
-"roboDoor1","DO14"
-"roboDoor2","DO13"
+"gripper1","DO14"
+"gripper2","DO13"
+"roboDoor1","DO16"
+"roboDoor2","DO15"
 "hopperLid1","DO12"
 "hopperLid2","DO11"
 "gate","DO10"
