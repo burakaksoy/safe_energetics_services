@@ -12,9 +12,10 @@ def main():
     # url='rr+tcp://192.168.1.142:9006/?service=RobotRequest'
     # url='rr+tcp://192.168.55.11:9006/?service=RobotRequest'
 
+    RRN.RequestTimeout = 60 # seconds
+
     #Start up Robot Raconteur and connect, standard by this point    
     c = RRN.ConnectService(url)
-
     while True:
         inp = get_input()
         print('c.jog_to(\''+ str(inp) + '\')')

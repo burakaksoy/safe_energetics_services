@@ -26,8 +26,8 @@ class RobotRequest_impl():
         self.q2 = None # for joint angles of the second robot. 
 
         # Create motion program client
-        # self.mot_prog_client = MotionProgramExecClient(base_url=self.robot_url)
-        self.mot_prog_client = MotionProgramExecClient() # for simulation
+        self.mot_prog_client = MotionProgramExecClient(base_url=self.robot_url)
+        # self.mot_prog_client = MotionProgramExecClient() # for simulation
 
         # Create robot tool data
         self.tool0 = tooldata(True,pose([5.5,0,270.7],[1,0,0,0]),loaddata(0.001,[0,0,0.001],[1,0,0,0],0,0,0))   
@@ -43,7 +43,7 @@ class RobotRequest_impl():
         # Construct a directed graph with n vertices
         self.vertices = [
                     {'name': 'J_HOME',  'pos': [1933.20,0.0,2049.5],        'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (0,0,0,0)       }, 
-                    {'name': 'CL_0',    'pos': [2011.1,-500.0,1095.27],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)     }, 
+                    {'name': 'CL_0',    'pos': [1911.1,-500.0,1095.27],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)     }, 
                     {'name': 'CL_1',    'pos': [2061.1,-238.062,1115.27],   'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)        },
                     {'name': 'CL_1B_D', 'pos': [2336.513,-238.062,1075.27], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CL_1B_U', 'pos': [2336.513,-238.062,1115.27], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
@@ -74,7 +74,7 @@ class RobotRequest_impl():
                     {'name': 'CL_6B_U', 'pos': [2336.513,-761.937,1115.27], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CL_6F_D', 'pos': [2263.488,-761.937,1075.27], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CL_6F_U', 'pos': [2263.488,-761.937,1115.27], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'CU_0',    'pos': [2011.1,-500.0,1400.07],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
+                    {'name': 'CU_0',    'pos': [1911.1,-500.0,1400.07],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CU_1',    'pos': [2061.1,-238.062,1420.07],   'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)        },
                     {'name': 'CU_1B_D', 'pos': [2336.513,-238.062,1380.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CU_1B_U', 'pos': [2336.513,-238.062,1420.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
@@ -126,8 +126,8 @@ class RobotRequest_impl():
 
                     {'source': 'J_HOME',    'target': 'H_0',    'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'},
                     {'source': 'H_0',       'target': 'J_HOME', 'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0'},  
-                    {'source': 'J_HOME',    'target': 'CL_0',   'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'J_HOME', 'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0'}, 
+                    {'source': 'CU_0',    'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CU_0', 'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'}, 
 
                     {'source': 'CU_0',      'target': 'CU_1',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
                     {'source': 'CU_1',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
