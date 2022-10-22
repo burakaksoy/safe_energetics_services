@@ -90,107 +90,108 @@ def main():
     mp = MotionProgram(tool=tool0)
     
     # Go home initially
-    mp.MoveAbsJ(J_HOME,v500,fine)
+    mp.MoveAbsJ(J_HOME,v100,fine)
     mp.WaitTime(2)
     
-    # Approach to cabinet upper layer
-    mp.MoveJ(CU_0,v500,fine)
+    
+    # # Approach to cabinet upper layer
+    # mp.MoveJ(CU_0,v500,fine)
 
-    # Look for available cups
-    # TODO
-    mp.WaitTime(1)
+    # # Look for available cups
+    # # TODO
+    # mp.WaitTime(1)
 
-    # Approach to available cup colum (eg 6)
-    mp.MoveL(CU_6,v500,fine)
-    mp.WaitTime(0.5)
-
-    # Approach to cup inside cabinet
-    mp.MoveL(CU_6B_U,v500,fine)
-    mp.MoveL(CU_6B_D,v500,fine)
-
-    # Grasp the cup
-    # TODO
-    mp.WaitTime(1)
-
-    # # Carry the cup outside cabinet
-    # mp.MoveL(CU_6B_U,v500,fine)
+    # # Approach to available cup colum (eg 6)
     # mp.MoveL(CU_6,v500,fine)
-    mp.MoveJ(CU_0,v500,fine)
-    mp.WaitTime(1)
+    # mp.WaitTime(0.5)
+
+    # # Approach to cup inside cabinet
+    # mp.MoveL(CU_6B_U,v500,fine)
+    # mp.MoveL(CU_6B_D,v500,fine)
+
+    # # Grasp the cup
+    # # TODO
+    # mp.WaitTime(1)
+
+    # # # Carry the cup outside cabinet
+    # # mp.MoveL(CU_6B_U,v500,fine)
+    # # mp.MoveL(CU_6,v500,fine)
+    # mp.MoveJ(CU_0,v500,fine)
+    # mp.WaitTime(1)
     
 
-    # Look for cup is successfully removed from cabinet
-    # TODO
+    # # Look for cup is successfully removed from cabinet
+    # # TODO
 
-    # Go to uncapping mechanism
-    mp.MoveL(UNC_0,v500,fine)
-    mp.WaitTime(0.5)
-    mp.MoveL(UNC_1,v100,fine)
-    mp.WaitTime(0.5)
-    mp.MoveL(UNC_2,v100,fine)
-    mp.WaitTime(0.5)
-    mp.MoveL(UNC_3,v100,fine)
-    mp.WaitTime(0.5)
-    mp.MoveL(UNC_0,v100,fine)
-    mp.WaitTime(0.5)
+    # # Go to uncapping mechanism
+    # mp.MoveL(UNC_0,v500,fine)
+    # mp.WaitTime(0.5)
+    # mp.MoveL(UNC_1,v100,fine)
+    # mp.WaitTime(0.5)
+    # mp.MoveL(UNC_2,v100,fine)
+    # mp.WaitTime(0.5)
+    # mp.MoveL(UNC_3,v100,fine)
+    # mp.WaitTime(0.5)
+    # mp.MoveL(UNC_0,v100,fine)
+    # mp.WaitTime(0.5)
 
-    # Make sure the cup is removed, accordingly re-try uncapping
-    # TODO
-    mp.WaitTime(1)
+    # # Make sure the cup is removed, accordingly re-try uncapping
+    # # TODO
+    # mp.WaitTime(1)
 
-    # Go back to in front of upper layer linearly
-    mp.MoveL(CU_0,v500,fine)
+    # # Go back to in front of upper layer linearly
+    # mp.MoveL(CU_0,v500,fine)
 
-    # Return to Home
-    mp.MoveAbsJ(J_HOME,v500,fine)
+    # # Return to Home
+    # mp.MoveAbsJ(J_HOME,v500,fine)
 
-    # Go to Hopper
-    mp.MoveJ(H_0,v500,fine)
+    # # Go to Hopper
+    # mp.MoveJ(H_0,v500,fine)
 
-    # Do pouring
-    mp.MoveL(H_1,v500,fine)
-    mp.MoveL(H_2,v500,fine)
-    mp.MoveJ(H_3,v500,fine)
-    mp.WaitTime(1.5)
+    # # Do pouring
+    # mp.MoveL(H_1,v500,fine)
+    # mp.MoveL(H_2,v500,fine)
+    # mp.MoveJ(H_3,v500,fine)
+    # mp.WaitTime(1.5)
 
-    # Revert the pouring
-    mp.MoveL(H_2,v500,fine)
-    mp.MoveL(H_1,v500,fine)
+    # # Revert the pouring
+    # mp.MoveL(H_2,v500,fine)
+    # mp.MoveL(H_1,v500,fine)
 
-    # Return to Home
-    mp.MoveJ(H_0,v500,fine)
-    mp.MoveAbsJ(J_HOME,v500,fine)
+    # # Return to Home
+    # mp.MoveJ(H_0,v500,fine)
+    # mp.MoveAbsJ(J_HOME,v500,fine)
 
-    # Go to lower side of the cabinet to return the empty cup
-    mp.MoveJ(CL_0,v500,fine)
+    # # Go to lower side of the cabinet to return the empty cup
+    # mp.MoveJ(CL_0,v500,fine)
 
-    # Look for a place available to put the cup
-    # TODO
-    mp.WaitTime(1)
+    # # Look for a place available to put the cup
+    # # TODO
+    # mp.WaitTime(1)
 
-    # Approach to available cup placing colum (eg 6)
-    mp.MoveL(CL_6,v500,fine)
-    mp.WaitTime(0.5)
+    # # Approach to available cup placing colum (eg 6)
+    # mp.MoveL(CL_6,v500,fine)
+    # mp.WaitTime(0.5)
 
-    # Approach to cup place inside cabinet
-    mp.MoveL(CL_6B_U,v500,fine)
-    mp.MoveL(CL_6B_D,v500,fine)
+    # # Approach to cup place inside cabinet
+    # mp.MoveL(CL_6B_U,v500,fine)
+    # mp.MoveL(CL_6B_D,v500,fine)
 
-    # Relaease the cup
-    # TODO
-    mp.WaitTime(1)
+    # # Relaease the cup
+    # # TODO
+    # mp.WaitTime(1)
 
-    # Carry the robot outside cabinet
-    mp.MoveL(CL_6B_U,v500,fine)
-    mp.MoveL(CL_6,v500,fine)
-    mp.MoveJ(CL_0,v500,fine)
+    # # Carry the robot outside cabinet
+    # mp.MoveL(CL_6B_U,v500,fine)
+    # mp.MoveL(CL_6,v500,fine)
+    # mp.MoveJ(CL_0,v500,fine)
     
-    # Look for cup is successfully placed to cabinet
-    # TODO
-    mp.WaitTime(1)
+    # # Look for cup is successfully placed to cabinet
+    # # TODO
+    # mp.WaitTime(1)
 
-    # Return to Home
-    mp.MoveAbsJ(J_HOME,v500,fine)
+    # # Return to Home
+    # mp.MoveAbsJ(J_HOME,v500,fine)
 
     print(mp.get_program_rapid())
 
@@ -206,5 +207,26 @@ def main():
     log_results_str = log_results.decode('ascii')
     print(log_results_str)
 
+def main2():
+    J_HOME = jointtarget([0,0,0,0,0,0],[0]*6)
+
+    tool0 = tooldata(True,pose([5.5,0,270.7],[1,0,0,0]),loaddata(0.001,[0,0,0.001],[1,0,0,0],0,0,0))   
+    mp = MotionProgram(tool=tool0)
+
+    mp2 = MotionProgram(tool=tool0)
+
+    # Go home initially
+    mp.MoveAbsJ(J_HOME,v100,fine)
+    mp.WaitTime(2)
+    mp2.MoveAbsJ(J_HOME,v100,fine)
+    mp2.WaitTime(2)
+
+    print(mp.get_program_rapid())
+
+    client = MotionProgramExecClient(base_url='http://192.168.55.1:80')
+    # client = MotionProgramExecClient()
+    log_results = client.execute_motion_program_multimove([mp,mp2])
+    log_results = client.execute_motion_program_multimove([mp3,mp2])
+
 if __name__ == "__main__":
-    main()
+    main2()

@@ -7,9 +7,9 @@ import time
 #Main program
 def main():
 
-    # url='rr+tcp://localhost:9005/?service=IOManager'
+    url='rr+tcp://localhost:9005/?service=IOManager'
     # url='rr+tcp://192.168.1.142:9005/?service=IOManager'
-    url='rr+tcp://192.168.55.11:9005/?service=IOManager'
+    # url='rr+tcp://192.168.55.11:9005/?service=IOManager'
 
     #Start up Robot Raconteur and connect, standard by this point    
     c = RRN.ConnectService(url)
