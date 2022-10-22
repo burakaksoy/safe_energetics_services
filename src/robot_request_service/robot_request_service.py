@@ -21,88 +21,24 @@ class RobotRequest_impl():
         self.file_name = parameter_file
         self.robot_url = robot_url
 
+        # this program is for single robot only, but a param is needed when ABB is using multimove controller
+        self.is_multi_move = True 
+        self.q2 = None # for joint angles of the second robot. 
+
         # Create motion program client
-        self.mot_prog_client = MotionProgramExecClient(base_url=self.robot_url)
-        # self.mot_prog_client = MotionProgramExecClient() # for simulation
+        # self.mot_prog_client = MotionProgramExecClient(base_url=self.robot_url)
+        self.mot_prog_client = MotionProgramExecClient() # for simulation
+
         # Create robot tool data
         self.tool0 = tooldata(True,pose([5.5,0,270.7],[1,0,0,0]),loaddata(0.001,[0,0,0.001],[1,0,0,0],0,0,0))   
         # Create robotics toolbox robot
         self.robot_rox = abb6640(R_tool=q2R([0.7071068,0,0.7071068,0]), p_tool=[270.7,0,-5.5]) # p_tool is defined wrt robot base
 
-        # Create waypoint poses
-        # self.J_HOME = jointtarget([0,0,0,0,0,0],[0]*6)
-        self.J_HOME =   robtarget([1933.20,0.0,2049.5],[0.707106781,0.0,0.707106781,0.0],confdata(0,0,0,0),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_0 =     robtarget([2011.1,-500.0,1095.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_1 =     robtarget([2061.1,-238.062,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_1B_D =  robtarget([2336.513,-238.062,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_1B_U =  robtarget([2336.513,-238.062,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_1F_D =  robtarget([2263.488,-238.062,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_1F_U =  robtarget([2263.488,-238.062,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_2 =     robtarget([2061.1,-342.837,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_2B_D =  robtarget([2336.513,-342.837,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_2B_U =  robtarget([2336.513,-342.837,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_2F_D =  robtarget([2263.488,-342.837,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_2F_U =  robtarget([2263.488,-342.837,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_3 =     robtarget([2061.1,-447.612,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_3B_D =  robtarget([2336.513,-447.612,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_3B_U =  robtarget([2336.513,-447.612,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_3F_D =  robtarget([2263.488,-447.612,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_3F_U =  robtarget([2263.488,-447.612,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_4 =     robtarget([2061.1,-552.387,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_4B_D =  robtarget([2336.513,-552.387,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_4B_U =  robtarget([2336.513,-552.387,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_4F_D =  robtarget([2263.488,-552.387,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_4F_U =  robtarget([2263.488,-552.387,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_5 =     robtarget([2061.1,-657.162,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_5B_D =  robtarget([2336.513,-657.162,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_5B_U =  robtarget([2336.513,-657.162,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_5F_D =  robtarget([2263.488,-657.162,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_5F_U =  robtarget([2263.488,-657.162,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_6 =     robtarget([2061.1,-761.937,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_6B_D =  robtarget([2336.513,-761.937,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_6B_U =  robtarget([2336.513,-761.937,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_6F_D =  robtarget([2263.488,-761.937,1075.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CL_6F_U =  robtarget([2263.488,-761.937,1115.27],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_0 =     robtarget([2011.1,-500.0,1400.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_1 =     robtarget([2061.1,-238.062,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_1B_D =  robtarget([2336.513,-238.062,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_1B_U =  robtarget([2336.513,-238.062,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_1F_D =  robtarget([2263.488,-238.062,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_1F_U =  robtarget([2263.488,-238.062,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_2 =     robtarget([2061.1,-342.837,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_2B_D =  robtarget([2336.513,-342.837,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_2B_U =  robtarget([2336.513,-342.837,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_2F_D =  robtarget([2263.488,-342.837,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_2F_U =  robtarget([2263.488,-342.837,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_3 =     robtarget([2061.1,-447.612,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_3B_D =  robtarget([2336.513,-447.612,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_3B_U =  robtarget([2336.513,-447.612,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_3F_D =  robtarget([2263.488,-447.612,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_3F_U =  robtarget([2263.488,-447.612,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_4 =     robtarget([2061.1,-552.387,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_4B_D =  robtarget([2336.513,-552.387,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_4B_U =  robtarget([2336.513,-552.387,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_4F_D =  robtarget([2263.488,-552.387,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_4F_U =  robtarget([2263.488,-552.387,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_5 =     robtarget([2061.1,-657.162,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_5B_D =  robtarget([2336.513,-657.162,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_5B_U =  robtarget([2336.513,-657.162,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_5F_D =  robtarget([2263.488,-657.162,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_5F_U =  robtarget([2263.488,-657.162,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_6 =     robtarget([2061.1,-761.937,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_6B_D =  robtarget([2336.513,-761.937,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_6B_U =  robtarget([2336.513,-761.937,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_6F_D =  robtarget([2263.488,-761.937,1380.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.CU_6F_U =  robtarget([2263.488,-761.937,1420.07],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.H_0 =      robtarget([1334.925,-1100.0,2006.6],[0.5,0.5,0.5,-0.5],confdata(-1,-2,1,0),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.H_1 =      robtarget([1334.925,-1400.0,2006.6],[0.5,0.5,0.5,-0.5],confdata(-1,-2,1,0),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.H_2 =      robtarget([1434.925,-1400.0,2106.6],[0.5,0.5,0.5,-0.5],confdata(-1,-1,0,0),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.H_3 =      robtarget([1462.925,-1400.0,2106.6],[0.5,0.5,-0.5,0.5],confdata(-1,-1,-2,0),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.UNC_0 =    robtarget([2135.7,-395.974,572.2],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.UNC_1 =    robtarget([2135.7,-295.974,578.7],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.UNC_2 =    robtarget([2123.7,-295.974,578.7],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-        self.UNC_3 =    robtarget([2123.7,-295.974,558.7],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
-
+        # Speed parameters
+        self.v_gnrl = "v500"
+        self.v_pour = "v100"
+        self.v_uncp = "v100"
+        
         print("Creating Waypoint Network graph..")
         # Construct a directed graph with n vertices
         self.vertices = [
@@ -179,159 +115,166 @@ class RobotRequest_impl():
                     {'name': 'UNC_3',   'pos': [2123.7,-295.974,558.7],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       }
                 ] 
         self.edges = [   
-                    {'source': 'J_HOME',    'target': 'CU_0',   'motion': 'MoveJ',      'speed': 'v100', 'wait': '0.5'}, 
-                    {'source': 'CU_0',      'target': 'J_HOME', 'motion': 'MoveJ',      'speed': 'v100', 'wait': '0'}, 
-                    {'source': 'CU_0',      'target': 'UNC_0',  'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'}, 
-                    {'source': 'UNC_0',     'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0'}, 
-                    {'source': 'UNC_0',     'target': 'UNC_1',  'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'}, 
-                    {'source': 'UNC_1',     'target': 'UNC_2',  'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'}, 
-                    {'source': 'UNC_2',     'target': 'UNC_3',  'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'}, 
-                    {'source': 'UNC_3',     'target': 'UNC_0',  'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
+                    {'source': 'J_HOME',    'target': 'CU_0',   'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'}, 
+                    {'source': 'CU_0',      'target': 'J_HOME', 'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0'}, 
+                    {'source': 'CU_0',      'target': 'UNC_0',  'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'}, 
+                    {'source': 'UNC_0',     'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'}, 
+                    {'source': 'UNC_0',     'target': 'UNC_1',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'}, 
+                    {'source': 'UNC_1',     'target': 'UNC_2',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'}, 
+                    {'source': 'UNC_2',     'target': 'UNC_3',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'}, 
+                    {'source': 'UNC_3',     'target': 'UNC_0',  'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
 
-                    {'source': 'J_HOME',    'target': 'H_0',    'motion': 'MoveJ',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'H_0',       'target': 'J_HOME', 'motion': 'MoveJ',      'speed': 'v100', 'wait': '0'},  
-                    {'source': 'J_HOME',    'target': 'CL_0',   'motion': 'MoveJ',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'J_HOME', 'motion': 'MoveJ',      'speed': 'v100', 'wait': '0'}, 
+                    {'source': 'J_HOME',    'target': 'H_0',    'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'H_0',       'target': 'J_HOME', 'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0'},  
+                    {'source': 'J_HOME',    'target': 'CL_0',   'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'J_HOME', 'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0'}, 
 
-                    {'source': 'CU_0',      'target': 'CU_1',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_1',      'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_0',      'target': 'CU_2',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_2',      'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_0',      'target': 'CU_3',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_3',      'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_0',      'target': 'CU_4',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_4',      'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_0',      'target': 'CU_5',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_5',      'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_0',      'target': 'CU_6',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CU_6',      'target': 'CU_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
+                    {'source': 'CU_0',      'target': 'CU_1',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_1',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_0',      'target': 'CU_2',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_2',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_0',      'target': 'CU_3',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_3',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_0',      'target': 'CU_4',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_4',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_0',      'target': 'CU_5',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_5',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_0',      'target': 'CU_6',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CU_6',      'target': 'CU_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
 
-                    {'source': 'CL_0',      'target': 'CL_1',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_1',      'target': 'CL_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'CL_2',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_2',      'target': 'CL_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'CL_3',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_3',      'target': 'CL_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'CL_4',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_4',      'target': 'CL_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'CL_5',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_5',      'target': 'CL_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_0',      'target': 'CL_6',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
-                    {'source': 'CL_6',      'target': 'CL_0',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CL_1',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_1',      'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CL_2',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_2',      'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CL_3',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_3',      'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CL_4',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_4',      'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CL_5',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_5',      'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_0',      'target': 'CL_6',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'CL_6',      'target': 'CL_0',   'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
 
-                    {'source': 'CU_1',      'target': 'CU_1F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_1',      'target': 'CU_1B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_1F_U',   'target': 'CU_1',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_1B_U',   'target': 'CU_1',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2',      'target': 'CU_2F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2',      'target': 'CU_2B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2F_U',   'target': 'CU_2',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2B_U',   'target': 'CU_2',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3',      'target': 'CU_3F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3',      'target': 'CU_3B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3F_U',   'target': 'CU_3',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3B_U',   'target': 'CU_3',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4',      'target': 'CU_4F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4',      'target': 'CU_4B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4F_U',   'target': 'CU_4',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4B_U',   'target': 'CU_4',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5',      'target': 'CU_5F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5',      'target': 'CU_5B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5F_U',   'target': 'CU_5',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5B_U',   'target': 'CU_5',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6',      'target': 'CU_6F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6',      'target': 'CU_6B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6F_U',   'target': 'CU_6',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6B_U',   'target': 'CU_6',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
+                    {'source': 'CU_1',      'target': 'CU_1F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_1',      'target': 'CU_1B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_1F_U',   'target': 'CU_1',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_1B_U',   'target': 'CU_1',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2',      'target': 'CU_2F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2',      'target': 'CU_2B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2F_U',   'target': 'CU_2',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2B_U',   'target': 'CU_2',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3',      'target': 'CU_3F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3',      'target': 'CU_3B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3F_U',   'target': 'CU_3',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3B_U',   'target': 'CU_3',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4',      'target': 'CU_4F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4',      'target': 'CU_4B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4F_U',   'target': 'CU_4',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4B_U',   'target': 'CU_4',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5',      'target': 'CU_5F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5',      'target': 'CU_5B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5F_U',   'target': 'CU_5',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5B_U',   'target': 'CU_5',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6',      'target': 'CU_6F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6',      'target': 'CU_6B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6F_U',   'target': 'CU_6',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6B_U',   'target': 'CU_6',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
 
-                    {'source': 'CU_1F_U',   'target': 'CU_1F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_1F_D',   'target': 'CU_1F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_1B_U',   'target': 'CU_1B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_1B_D',   'target': 'CU_1B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2F_U',   'target': 'CU_2F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2F_D',   'target': 'CU_2F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2B_U',   'target': 'CU_2B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_2B_D',   'target': 'CU_2B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3F_U',   'target': 'CU_3F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3F_D',   'target': 'CU_3F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3B_U',   'target': 'CU_3B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_3B_D',   'target': 'CU_3B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4F_U',   'target': 'CU_4F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4F_D',   'target': 'CU_4F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4B_U',   'target': 'CU_4B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_4B_D',   'target': 'CU_4B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5F_U',   'target': 'CU_5F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5F_D',   'target': 'CU_5F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5B_U',   'target': 'CU_5B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_5B_D',   'target': 'CU_5B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6F_U',   'target': 'CU_6F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6F_D',   'target': 'CU_6F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6B_U',   'target': 'CU_6B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CU_6B_D',   'target': 'CU_6B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
+                    {'source': 'CU_1F_U',   'target': 'CU_1F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_1F_D',   'target': 'CU_1F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_1B_U',   'target': 'CU_1B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_1B_D',   'target': 'CU_1B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2F_U',   'target': 'CU_2F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2F_D',   'target': 'CU_2F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2B_U',   'target': 'CU_2B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_2B_D',   'target': 'CU_2B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3F_U',   'target': 'CU_3F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3F_D',   'target': 'CU_3F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3B_U',   'target': 'CU_3B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_3B_D',   'target': 'CU_3B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4F_U',   'target': 'CU_4F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4F_D',   'target': 'CU_4F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4B_U',   'target': 'CU_4B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_4B_D',   'target': 'CU_4B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5F_U',   'target': 'CU_5F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5F_D',   'target': 'CU_5F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5B_U',   'target': 'CU_5B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_5B_D',   'target': 'CU_5B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6F_U',   'target': 'CU_6F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6F_D',   'target': 'CU_6F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6B_U',   'target': 'CU_6B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CU_6B_D',   'target': 'CU_6B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
 
+                    {'source': 'CL_1',      'target': 'CL_1F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_1',      'target': 'CL_1B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_1F_U',   'target': 'CL_1',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_1B_U',   'target': 'CL_1',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2',      'target': 'CL_2F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2',      'target': 'CL_2B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2F_U',   'target': 'CL_2',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2B_U',   'target': 'CL_2',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3',      'target': 'CL_3F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3',      'target': 'CL_3B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3F_U',   'target': 'CL_3',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3B_U',   'target': 'CL_3',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4',      'target': 'CL_4F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4',      'target': 'CL_4B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4F_U',   'target': 'CL_4',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4B_U',   'target': 'CL_4',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5',      'target': 'CL_5F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5',      'target': 'CL_5B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5F_U',   'target': 'CL_5',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5B_U',   'target': 'CL_5',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6',      'target': 'CL_6F_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6',      'target': 'CL_6B_U',    'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6F_U',   'target': 'CL_6',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6B_U',   'target': 'CL_6',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
 
-                    {'source': 'CL_1',      'target': 'CL_1F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_1',      'target': 'CL_1B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_1F_U',   'target': 'CL_1',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_1B_U',   'target': 'CL_1',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2',      'target': 'CL_2F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2',      'target': 'CL_2B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2F_U',   'target': 'CL_2',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2B_U',   'target': 'CL_2',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3',      'target': 'CL_3F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3',      'target': 'CL_3B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3F_U',   'target': 'CL_3',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3B_U',   'target': 'CL_3',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4',      'target': 'CL_4F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4',      'target': 'CL_4B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4F_U',   'target': 'CL_4',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4B_U',   'target': 'CL_4',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5',      'target': 'CL_5F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5',      'target': 'CL_5B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5F_U',   'target': 'CL_5',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5B_U',   'target': 'CL_5',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6',      'target': 'CL_6F_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6',      'target': 'CL_6B_U',    'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6F_U',   'target': 'CL_6',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6B_U',   'target': 'CL_6',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-
-                    {'source': 'CL_1F_U',   'target': 'CL_1F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_1F_D',   'target': 'CL_1F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_1B_U',   'target': 'CL_1B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_1B_D',   'target': 'CL_1B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2F_U',   'target': 'CL_2F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2F_D',   'target': 'CL_2F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2B_U',   'target': 'CL_2B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_2B_D',   'target': 'CL_2B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3F_U',   'target': 'CL_3F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3F_D',   'target': 'CL_3F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3B_U',   'target': 'CL_3B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_3B_D',   'target': 'CL_3B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4F_U',   'target': 'CL_4F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4F_D',   'target': 'CL_4F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4B_U',   'target': 'CL_4B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_4B_D',   'target': 'CL_4B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5F_U',   'target': 'CL_5F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5F_D',   'target': 'CL_5F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5B_U',   'target': 'CL_5B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_5B_D',   'target': 'CL_5B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6F_U',   'target': 'CL_6F_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6F_D',   'target': 'CL_6F_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6B_U',   'target': 'CL_6B_D',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
-                    {'source': 'CL_6B_D',   'target': 'CL_6B_U',       'motion': 'MoveL',      'speed': 'v100', 'wait': '0'},
+                    {'source': 'CL_1F_U',   'target': 'CL_1F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_1F_D',   'target': 'CL_1F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_1B_U',   'target': 'CL_1B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_1B_D',   'target': 'CL_1B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2F_U',   'target': 'CL_2F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2F_D',   'target': 'CL_2F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2B_U',   'target': 'CL_2B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_2B_D',   'target': 'CL_2B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3F_U',   'target': 'CL_3F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3F_D',   'target': 'CL_3F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3B_U',   'target': 'CL_3B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_3B_D',   'target': 'CL_3B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4F_U',   'target': 'CL_4F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4F_D',   'target': 'CL_4F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4B_U',   'target': 'CL_4B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_4B_D',   'target': 'CL_4B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5F_U',   'target': 'CL_5F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5F_D',   'target': 'CL_5F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5B_U',   'target': 'CL_5B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_5B_D',   'target': 'CL_5B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6F_U',   'target': 'CL_6F_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6F_D',   'target': 'CL_6F_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6B_U',   'target': 'CL_6B_D',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
+                    {'source': 'CL_6B_D',   'target': 'CL_6B_U',       'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0'},
                 
-                    {'source': 'H_0',     'target': 'H_1',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0'}, 
-                    {'source': 'H_1',     'target': 'H_0',   'motion': 'MoveJ',      'speed': 'v100', 'wait': '0'}, 
+                    {'source': 'H_0',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
+                    {'source': 'H_1',     'target': 'H_0',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'}, 
 
-                    {'source': 'H_1',     'target': 'H_2',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0'}, 
-                    {'source': 'H_2',     'target': 'H_1',   'motion': 'MoveL',      'speed': 'v100', 'wait': '0'}, 
+                    {'source': 'H_1',     'target': 'H_2',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
+                    {'source': 'H_2',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
 
-                    {'source': 'H_2',     'target': 'H_3',   'motion': 'MoveJ',      'speed': 'v100', 'wait': '1.5'}, 
-                    {'source': 'H_3',     'target': 'H_2',   'motion': 'MoveJ',      'speed': 'v100', 'wait': '0'} 
+                    {'source': 'H_2',     'target': 'H_3',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '1.5'}, 
+                    {'source': 'H_3',     'target': 'H_2',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'} 
                 ]
         self.g = ig.Graph.DictList(self.vertices, self.edges,directed=True)
         self.g["title"] = "Waypoint Network"
         print(self.g)
+
+        if self.is_multi_move:
+            print("Multimove is active.")
+            # get the current joint angles of the second robot. 
+            # it will be jogged to current angles for every command for robot 1
+            q1, self.q2 = self._get_current_joint_angles()
+            print("Robot 1 joint angles: " + str(q1))
+            print("Robot 2 joint angles: " + str(self.q2))
 
         # self._plot_waypoints_network_graph()
 
@@ -380,8 +323,9 @@ class RobotRequest_impl():
 
     def _generate_motion_primitive_code(self,start,target):
         # Create the motion primitive code for shorthest path between "start" and "target"
-        # returns thecommands as list of strings 
+        # returns the commands as list of strings 
         motion_code = []
+        motion_code_simple = [] # simplifies version of commands to print
 
         path_v = self.g.get_shortest_paths(start,to=target, output="vpath")[0][1:]
         # print(path_v)
@@ -389,40 +333,76 @@ class RobotRequest_impl():
         # print(path_e)
         
         for v,e in zip(path_v,path_e):
-            cmd = "mp." + self.g.es[e]["motion"] + "(self." + self.g.vs[v]["name"] + "," + self.g.es[e]["speed"] + ",fine)"
+            robtarget_str = self._robtarget_str(self.g.vs[v]["name"])
+            cmd = "mp." + self.g.es[e]["motion"] + "(" + robtarget_str + "," + self.g.es[e]["speed"] + ",fine)"
             motion_code.append(cmd)
+
+            cmd_simple = "mp." + self.g.es[e]["motion"] + "(" + self.g.vs[v]["name"] + "," + self.g.es[e]["speed"] + ",fine)"
+            motion_code_simple.append(cmd_simple)
+
             if self.g.es[e]["wait"] != "0":
                 cmd = "mp.WaitTime(" + self.g.es[e]["wait"] + ")"
                 motion_code.append(cmd)
+
+                motion_code_simple.append(cmd)
         
         # Print motion primitive code for debug
-        print("Motion code from: " + start + " to: " + target + ":")
-        for cmd in motion_code:
-            print(cmd)
+        print("Motion code (simplified) from: " + start + " to: " + target + ":")
+        for cmd_simple in motion_code_simple:
+            print(cmd_simple)
         return motion_code
 
     def _get_current_joint_angles(self):
-        # Create a new motion program
-        mp = MotionProgram(tool=self.tool0)
         # Calculate Machine precision for minimum wait time
         eps = 7./3 - 4./3 -1
-        mp.WaitTime(eps)
-        log_results = self.mot_prog_client.execute_motion_program(mp)
-        # convert to string and use in memory
-        log_results_str = log_results.decode('ascii')
-        # print(log_results_str)
 
-        # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
-        # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
-        current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:8]
-        current_joints = [float(x) for x in current_joints_str]
-        # print("current_joint angles: " + str(current_joints) + " deg.")
+        if self.is_multi_move:
+            # Create a new motion program
+            mp = MotionProgram(tool=self.tool0)
+            mp2 = MotionProgram()
 
-        return np.array(current_joints) # deg
+            mp.WaitTime(eps)
+            mp2.WaitTime(eps)
+
+            log_results = self.mot_prog_client.execute_multimove_motion_program([mp,mp2])
+            # convert to string and use in memory
+            log_results_str = log_results.decode('ascii')
+            # print(log_results_str)
+
+            current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:2+6]
+            current_joints = [float(x) for x in current_joints_str]
+            # print("current_joint angles rob1: " + str(current_joints) + " deg.")
+            
+            current_joints_str2 = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
+            current_joints2 = [float(x) for x in current_joints_str2]
+            # print("current_joint angles rob2: " + str(current_joints2) + " deg.")
+
+            return np.array(current_joints),np.array(current_joints2)  # deg (rob1 angles, rob2 angles)
+
+        else:
+            # Create a new motion program
+            mp = MotionProgram(tool=self.tool0)
+
+            mp.WaitTime(eps)
+            log_results = self.mot_prog_client.execute_motion_program(mp)
+            # convert to string and use in memory
+            log_results_str = log_results.decode('ascii')
+            # print(log_results_str)
+
+            # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
+            # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
+            current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:8]
+            current_joints = [float(x) for x in current_joints_str]
+            # print("current_joint angles: " + str(current_joints) + " deg.")
+
+            return np.array(current_joints) # deg
 
     def _get_current_pose(self):
         # calculate current pose from current joint angles
-        q = self._get_current_joint_angles() # deg
+        if self.is_multi_move:
+            q,q2 = self._get_current_joint_angles() # deg
+        else:
+            q = self._get_current_joint_angles() # deg
         q = np.deg2rad(q) # rad
 
         T = self.robot_rox.fwd(q) # transform
@@ -484,14 +464,42 @@ class RobotRequest_impl():
         # Jogs robot to the nearest waypoint to the current position 
         # Movement is in joint space, hence, USE WITH CAUTION!
         # Returns the name of the jogged nearest waypoint
-
         nearest_wayp = self._get_nearest_two_waypoint_name()[0] # string
-        # print("nearest_wayp: " + nearest_wayp)
+        print("nearest_wayp: " + nearest_wayp)
         mp = MotionProgram(tool=self.tool0)
-        mp.MoveJ(eval("self." + nearest_wayp),v100,fine)
+        mp.MoveJ(eval(self._robtarget_str(nearest_wayp)),v100,fine)
+
         # print(mp.get_program_rapid())
-        log_results = self.mot_prog_client.execute_motion_program(mp)
+        log_results = self._motion_program_executer(mp)
         return nearest_wayp
+
+    def _robtarget_str(self,target):
+        # generates the robtarget string to be evaluated from the graph given target name
+        v = self.g.vs.find(target) # vertex object from the graph
+        robtarget_str = "robtarget("+str(v["pos"])+","+str(v["quat"])+",confdata"+str(v["conf"])+",[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])"
+        # robtarget([2123.7,-295.974,558.7],[0.707106781,0.0,0.707106781,0.0],confdata(-1,-1,0,1),[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09])
+        return robtarget_str
+
+    def _motion_program_executer(self,mp):
+        # Takes single robot motion program, executes it according to multi_move setup
+        if self.is_multi_move:
+            # print(mp.get_program_rapid())
+            cmd=mp.get_program_rapid()
+            chunks = cmd.split(';')
+
+            mp2 = MotionProgram()
+            for line in chunks:
+                if 'Move' in line:
+                    mp2.MoveAbsJ(jointtarget(self.q2,[0]*6),v100,fine)
+                elif 'WaitTime' in line:
+                    mp2.WaitTime(0.1)
+            log_results = self.mot_prog_client.execute_multimove_motion_program([mp,mp2])
+
+        else:
+            # print(mp.get_program_rapid())
+            log_results = self.mot_prog_client.execute_motion_program(mp)
+        
+        return log_results
 
     def jog_to(self,target):
         # Jogs robot to nearest waypoint in joint space
@@ -504,7 +512,7 @@ class RobotRequest_impl():
                 eval(cmd)
             # Execute the generated motion code
             # print(mp.get_program_rapid())
-            log_results = self.mot_prog_client.execute_motion_program(mp)
+            log_results = self._motion_program_executer(mp)
 
     def go2Home(self):
         target = "J_HOME" 
@@ -586,6 +594,7 @@ def main():
 
         # register service type
         RRN.RegisterServiceTypeFromFile("./experimental.robot_request_service")
+        # RRN.RequestTimeout = 1 # seconds
 
         # create object
         RobotRequest_inst = RobotRequest_impl(parameter_file,robot_url)

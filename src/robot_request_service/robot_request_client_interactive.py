@@ -17,16 +17,16 @@ def main():
 
     while True:
         inp = get_input()
-        print('c.'+ str(inp))
-        eval('c.'+str(inp))
+        print('c.jog_to(\''+ str(inp) + '\')')
+        eval('c.jog_to(\''+ str(inp) + '\')')
 
 
 
 def get_input():
     if (sys.version_info > (3, 0)):
-        inp = input("press enter command:\n")
+        inp = input("press enter which waypoint you want to jog to (e.g. J_HOME):\n")
     else:
-        inp = raw_input("press enter command:")
+        inp = raw_input("press enter which waypoint you want to jog to (e.g. J_HOME):")
 
     return inp
 
