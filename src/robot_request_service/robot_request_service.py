@@ -35,9 +35,9 @@ class RobotRequest_impl():
         self.robot_rox = abb6640(R_tool=q2R([0.7071068,0,0.7071068,0]), p_tool=[270.7,0,-5.5]) # p_tool is defined wrt robot base
 
         # Speed parameters
-        self.v_gnrl = "v100"
-        self.v_pour = "v100"
-        self.v_uncp = "v100"
+        self.v_gnrl = "v300"
+        self.v_pour = "v300"
+        self.v_uncp = "v30" # v5, v10, v20, v30, v40, v50, v60, v80, v100, v200, v300, v400, v500, v600, v800, v1000, v1500, v2000, v2500
         
         print("Creating Waypoint Network graph..")
         # Construct a directed graph with n vertices
@@ -105,14 +105,15 @@ class RobotRequest_impl():
                     {'name': 'CU_6B_U', 'pos': [2336.513,-761.937,1420.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CU_6F_D', 'pos': [2263.488,-761.937,1382.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CU_6F_U', 'pos': [2263.488,-761.937,1420.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'H_0',     'pos': [1334.925,-1100.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
+                    {'name': 'H_0',     'pos': [1334.925,-1000.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
                     {'name': 'H_1',     'pos': [1334.925,-1400.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
                     {'name': 'H_2',     'pos': [1434.925,-1400.0,2106.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-1,0,0)        },
                     {'name': 'H_3',     'pos': [1462.925,-1400.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        },
-                    {'name': 'UNC_0',   'pos': [2135.7,-395.974,572.2],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'UNC_1',   'pos': [2135.7,-295.974,578.7],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'UNC_2',   'pos': [2123.7,-295.974,578.7],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'UNC_3',   'pos': [2123.7,-295.974,558.7],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       }
+                    {'name': 'UNC_0',   'pos': [2139.22,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
+                    {'name': 'UNC_1',   'pos': [2139.22,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
+                    {'name': 'UNC_2',   'pos': [2137.00,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
+                    {'name': 'UNC_3',   'pos': [2137.00,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
+                    {'name': 'UNC_4',   'pos': [1946.16,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       }
                 ] 
         self.edges = [   
                     {'source': 'J_HOME',    'target': 'CU_0',   'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'}, 
@@ -122,7 +123,8 @@ class RobotRequest_impl():
                     {'source': 'UNC_0',     'target': 'UNC_1',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'}, 
                     {'source': 'UNC_1',     'target': 'UNC_2',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'}, 
                     {'source': 'UNC_2',     'target': 'UNC_3',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'}, 
-                    {'source': 'UNC_3',     'target': 'UNC_0',  'motion': 'MoveL',      'speed': self.v_gnrl, 'wait': '0.5'},
+                    {'source': 'UNC_3',     'target': 'UNC_4',  'motion': 'MoveL',      'speed': self.v_uncp, 'wait': '0.5'},
+                    {'source': 'UNC_4',     'target': 'UNC_0',  'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'},
 
                     {'source': 'J_HOME',    'target': 'H_0',    'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0.5'},
                     {'source': 'H_0',       'target': 'J_HOME', 'motion': 'MoveJ',      'speed': self.v_gnrl, 'wait': '0'},  
@@ -261,7 +263,7 @@ class RobotRequest_impl():
                     {'source': 'H_1',     'target': 'H_2',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
                     {'source': 'H_2',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
 
-                    {'source': 'H_2',     'target': 'H_3',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '1.5'}, 
+                    {'source': 'H_2',     'target': 'H_3',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '1'}, 
                     {'source': 'H_3',     'target': 'H_2',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'} 
                 ]
         self.g = ig.Graph.DictList(self.vertices, self.edges,directed=True)
@@ -547,7 +549,7 @@ class RobotRequest_impl():
         self.jog_to(target)
 
     def RemoveCupLid(self):
-        target = "UNC_3" 
+        target = "UNC_4" 
         self.jog_to(target)
 
     def go2Hopper(self):

@@ -19,11 +19,18 @@ def main():
     while True:
         inp = get_input()
         print('c.' + str(inp))
-        eval('c.' + str(inp))
+        try: 
+            result = eval('c.' + str(inp))
+            if result is not None:
+                print(str(result))
+        except:
+            print("asd")
+            pass
 
 
 
 def get_input():
+    print("------------------------")
     print("Available commands:")
     print("openGripper()")
     print("isGripperOpen()")
@@ -44,6 +51,7 @@ def get_input():
     print("unlockGate()")
     print("isGateClosed()")
     print("isEmergency()")
+    print("------------------------")
     if (sys.version_info > (3, 0)):
         inp = input("press enter an IO command ( e.g. openGripper() ):\n")
     else:
