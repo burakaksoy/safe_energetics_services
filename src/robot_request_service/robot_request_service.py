@@ -367,6 +367,8 @@ class RobotRequest_impl():
             mp2.WaitTime(eps)
 
             log_results = self.mot_prog_client.execute_multimove_motion_program([mp,mp2])
+
+            # OLD LOG_RESULTS
             # convert to string and use in memory
             log_results_str = log_results.decode('ascii')
             # print(log_results_str)
@@ -381,12 +383,21 @@ class RobotRequest_impl():
 
             return np.array(current_joints),np.array(current_joints2)  # deg (rob1 angles, rob2 angles)
 
+            # NEW LOG_RESULTS
+            current_joints = log_results[-1,2:2+6] 
+            current_joints2 = log_results[-1,-6:]
+            # print("current_joint angles rob1: " + str(current_joints) + " deg.")
+            # print("current_joint angles rob2: " + str(current_joints2) + " deg.")
+            return current_joints, current_joints2
+
         else:
             # Create a new motion program
             mp = MotionProgram(tool=self.tool0)
 
             mp.WaitTime(eps)
             log_results = self.mot_prog_client.execute_motion_program(mp)
+
+            # OLD LOG_RESULTS
             # convert to string and use in memory
             log_results_str = log_results.decode('ascii')
             # print(log_results_str)
@@ -398,6 +409,11 @@ class RobotRequest_impl():
             # print("current_joint angles: " + str(current_joints) + " deg.")
 
             return np.array(current_joints) # deg
+
+            # NEW LOG_RESULTS
+            current_joints = log_results[-1,2:2+6]
+            # print("current_joint angles rob1: " + str(current_joints) + " deg.")
+            return current_joints
 
     def _get_current_pose(self):
         # calculate current pose from current joint angles
