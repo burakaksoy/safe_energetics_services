@@ -24,7 +24,7 @@ def main():
             if result is not None:
                 print(str(result))
         except:
-            print("asd")
+            print("Failed to Evaluate the requested command")
             pass
 
 
