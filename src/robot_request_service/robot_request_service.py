@@ -107,8 +107,11 @@ class RobotRequest_impl():
                     {'name': 'CU_6F_U', 'pos': [2263.488,-761.937,1420.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'H_0',     'pos': [1334.925,-1000.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
                     {'name': 'H_1',     'pos': [1334.925,-1400.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
-                    {'name': 'H_2',     'pos': [1434.925,-1400.0,2106.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-1,0,0)        },
-                    {'name': 'H_3',     'pos': [1462.925,-1400.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        },
+                    # {'name': 'H_2',     'pos': [1434.925,-1400.0,2106.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-1,0,0)        },
+                    {'name': 'H_2',     'pos': [1385.30,-1400.0,1992.99],   'quat': [0.3248998,0.32490,0.62804,-0.62805],                 'conf': (-1,-1,0,0)        },
+                    # {'name': 'H_3',     'pos': [1462.925,-1400.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        },
+                    {'name': 'H_3',     'pos': [1383.30,-1400.0,2047.48],   'quat': [0.0,0.0,0.7071068,-0.7071068],                 'conf': (-1,-1,-2,0)        },
+                    {'name': 'H_4',     'pos': [1464.69,-1400.0,2086.1],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        },
                     {'name': 'UNC_0',   'pos': [2139.22,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'UNC_1',   'pos': [2139.22,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'UNC_2',   'pos': [2136.00,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
@@ -265,8 +268,11 @@ class RobotRequest_impl():
                     {'source': 'H_1',     'target': 'H_2',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
                     {'source': 'H_2',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour, 'wait': '0'}, 
 
-                    {'source': 'H_2',     'target': 'H_3',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '1'}, 
-                    {'source': 'H_3',     'target': 'H_2',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'} 
+                    {'source': 'H_2',     'target': 'H_3',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'}, 
+                    {'source': 'H_3',     'target': 'H_2',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'},
+
+                    {'source': 'H_3',     'target': 'H_4',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'}, 
+                    {'source': 'H_4',     'target': 'H_3',   'motion': 'MoveJ',      'speed': self.v_pour, 'wait': '0'} 
                 ]
         self.g = ig.Graph.DictList(self.vertices, self.edges,directed=True)
         self.g["title"] = "Waypoint Network"
@@ -567,7 +573,7 @@ class RobotRequest_impl():
         self.jog_to(target)
 
     def RemoveCupLid(self):
-        target = "UNC_4" 
+        target = "UNC_5" 
         self.jog_to(target)
 
     def go2Hopper(self):
@@ -575,7 +581,7 @@ class RobotRequest_impl():
         self.jog_to(target)
 
     def PourMaterial(self):
-        target = "H_3" 
+        target = "H_4" 
         self.jog_to(target)
 
     def go2CabinetLower(self):

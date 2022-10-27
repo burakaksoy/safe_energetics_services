@@ -71,7 +71,7 @@ def main():
 
     # -------------------------------------------------------
 
-    print("About to start: LEVEL SENSOR SERVICE FUNCTIONS")
+    print("About to start: PLACE DETECTOR SERVICE FUNCTIONS")
     get_input()
     available_locations = c_place.getAvailableLocations()
     print("Available locations:")
