@@ -16,6 +16,11 @@ def main():
     url_io='rr+tcp://localhost:9005/?service=IOManager'
     url_rob_req='rr+tcp://localhost:9006/?service=RobotRequest'
 
+    url_level='rr+tcp://192.168.55.10:9001/?service=LevelSensor'
+    url_lid='rr+tcp://192.168.55.11:9004/?service=LidChecker'
+    url_place='rr+tcp://192.168.55.11:9003/?service=PlaceDetector'
+    url_cup='rr+tcp://192.168.55.11:9002/?service=CupDetector'
+
     RRN.RequestTimeout = 120 # seconds
 
     #Start up Robot Raconteur and connect, standard by this point    
@@ -162,11 +167,11 @@ def main():
 
 def get_input():
     if (sys.version_info > (3, 0)):
-        input("press enter to continue...\n")
-        # print("press enter to continue...\n")
+        # input("press enter to continue...\n")
+        print("press enter to continue...\n")
     else:
-        raw_input("press enter to continue...")
-        # print("press enter to continue...")
+        # raw_input("press enter to continue...")
+        print("press enter to continue...")
 
 if __name__ == '__main__':
     main()
