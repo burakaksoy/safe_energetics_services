@@ -613,7 +613,7 @@ class RobotRequest_impl():
 def main():
     port_num = 9006
     robot_url = 'http://192.168.55.1:80' # ABB computer's URL
-    parameter_file = "./robot_request_service.csv"
+    parameter_file = "./robot_request_service.csv" # NOT used for this service
     
     # RR.ServerNodeSetup("NodeName", TCP listen port, optional set of flags as parameters)
     with RR.ServerNodeSetup("experimental.robot_request_service", port_num) as node_setup:
