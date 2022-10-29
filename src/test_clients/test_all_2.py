@@ -51,7 +51,7 @@ def main():
     # time.sleep(1)
     # print("is gate Locked? Answer: " +  str(c_io.isGateLocked()))
 
-    # Standard emergency IO checking is done like this:
+    # emergency stop IO checking is done like this:
     print("is there Emergency? Answer: " +  str(c_io.isEmergency()))
     # TODO: act according to emergency
 
@@ -85,14 +85,14 @@ def main():
     # wait for level to be low and and keep pouring until the level is high
     need_material = False # Initially assume no material is needed in the hopper
     while True: 
-        print("Checking isLevelLow?")
+        print("Checking is hopper level Low?")
         level_low = c_level.isLevelLow()
         if level_low:
             print("Hopper level is LOW")
         else:
             print("Hopper level is GOOD")
 
-        print("Checking isLevelLow?")
+        print("Checking is hopper level High?")
         level_high = c_level.isLevelHigh()
         if level_high:
             print("Hopper level is HIGH")
@@ -121,7 +121,7 @@ def main():
             time.sleep(3)
             print("is Cabinet Robo Door open? Answer: " +  str(c_io.isCabinetRoboDoorOpen()))
             print("is Cabinet robo door closed? Answer: " +  str(c_io.isCabinetRoboDoorClosed()))
-            # TODO: act according to gripper opening situation
+            # TODO: act according to cabinet robo door opening situation
 
             # Check for available cups to pickup here
             print("Getting the available cup locations..")
