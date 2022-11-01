@@ -108,7 +108,7 @@ def main():
             print("Material filling is needed in the hopper")
 
             print("About to start: go2Home")
-            get_input()
+            # get_input()
             c_rob_req.go2Home()
 
             # TODO: Execute every function as a try-except method for error checking
@@ -139,7 +139,7 @@ def main():
                     # TODO: act accordingly, require op. acknowledge
 
                 print("About to start: go2Cup(" + str(cup_locations[0]) + ")")
-                get_input()
+                # get_input()
                 c_rob_req.go2Cup(cup_locations[0])
 
                 print("Attempting to close the gripper")
@@ -150,11 +150,11 @@ def main():
                 # TODO: act according to gripper opening situation
 
                 print("About to start: go2CabinetUpper")
-                get_input()
+                # get_input()
                 c_rob_req.go2CabinetUpper()
 
                 print("Attempting to close the cabinet Robo Door")
-                get_input()
+                # get_input()
                 c_io.closeCabinetRoboDoor()
                 time.sleep(3)
                 print("is Cabinet Robo Door open? Answer: " +  str(c_io.isCabinetRoboDoorOpen()))
@@ -185,7 +185,7 @@ def main():
                 for trial in range(3):
                     if not is_success_lid_removal:
                         print("About to start: go2LidRemover")
-                        get_input()
+                        # get_input()
                         c_rob_req.go2LidRemover()  
                         print("About to start: RemoveCupLid")
                         c_rob_req.RemoveCupLid()  
@@ -210,7 +210,7 @@ def main():
                 # else:
                 print("Lid removal is successful!")
                 print("About to start: go2Hopper")
-                get_input()
+                # get_input()
                 c_rob_req.go2Hopper() 
 
                 print("Attempting to open the hopper Lid")
@@ -221,7 +221,7 @@ def main():
                 # TODO: act according to hopper lid opening situation
 
                 print("About to start: PourMaterial")
-                get_input()
+                # get_input()
                 c_rob_req.PourMaterial() 
                 time.sleep(1)
                 print("About to start: go2Hopper")
@@ -259,7 +259,7 @@ def main():
                 else:
                     placing_location = available_locations[0]
                     print("About to start: go2Place(" + str(placing_location) + ")")
-                    get_input()
+                    # get_input()
                     c_rob_req.go2Place(placing_location)
 
                     print("Attempting to open the gripper")
@@ -271,7 +271,7 @@ def main():
                     # TODO: act according to gripper opening situation
 
                     print("About to start: go2CabinetLower")
-                    get_input()
+                    # get_input()
                     c_rob_req.go2CabinetLower()
 
                     # Confirm correct placing here
@@ -299,7 +299,7 @@ def main():
                     # TODO: act according to cabinet opening situation
 
                     print("About to start: go2Home")
-                    get_input()
+                    # get_input()
                     c_rob_req.go2Home()
 
         else:
