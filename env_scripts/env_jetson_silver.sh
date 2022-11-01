@@ -12,7 +12,7 @@ export DISPLAY=:0 # For Kinect remote launch
 
 killall gnome-terminal-server
 sleep 1s
-gnome-terminal --display=:0 --command "bash -c \"source ~/.bashrc; roslaunch azure_kinect_ros_driver kinect_rgbd.launch; exec bash\""
+gnome-terminal --tab --display=:0 --command "bash -c \"source ~/.bashrc; roslaunch azure_kinect_ros_driver kinect_rgbd.launch; exec bash\""
 sleep 10s #let kinect to start
-gnome-terminal --display=:0 --command "bash -c \"source ~/.bashrc; cd ~/catkin_ws_kinect/src/safe_energetics_services/src/level_sensor_service; python level_sensor_service.py; exec bash\""
+gnome-terminal --tab --display=:0 --command "bash -c \"source ~/.bashrc; cd ~/catkin_ws_kinect/src/safe_energetics_services/src/level_sensor_service; python level_sensor_service.py; exec bash\""
 exec "$@"
