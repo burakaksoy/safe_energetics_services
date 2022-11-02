@@ -21,7 +21,7 @@ python lid_checker_service.py;
 # CUP DETECTOR
 "source ~/.bashrc;
 source ~/catkin_ws_kinect/src/safe_energetics_services/env_scripts/env_jetson_blue.sh;
-sleep 1s;
+sleep 10s;
 cd ~/catkin_ws_kinect/src/safe_energetics_services/src/cup_detector_service; 
 python cup_detector_service.py;
 /bin/bash"
@@ -29,7 +29,7 @@ python cup_detector_service.py;
 # PLACE DETECTOR
 "source ~/.bashrc;
 source ~/catkin_ws_kinect/src/safe_energetics_services/env_scripts/env_jetson_blue.sh;
-sleep 1s;
+sleep 10s;
 cd ~/catkin_ws_kinect/src/safe_energetics_services/src/place_detector_service; 
 python place_detector_service.py;
 /bin/bash"
