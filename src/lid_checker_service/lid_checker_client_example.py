@@ -6,8 +6,8 @@ from RobotRaconteur.Client import *
 def main():
 
     # url='rr+tcp://localhost:9004/?service=LidChecker'
-    # url='rr+tcp://192.168.1.142:9004/?service=LidChecker'
-    url='rr+tcp://192.168.55.11:9004/?service=LidChecker'
+    url='rr+tcp://192.168.1.142:9004/?service=LidChecker'
+    # url='rr+tcp://192.168.55.11:9004/?service=LidChecker'
 
     #Start up Robot Raconteur and connect, standard by this point    
     c = RRN.ConnectService(url)

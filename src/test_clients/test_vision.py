@@ -7,10 +7,10 @@ import sys
 
 #Main program
 def main():
-    url_level='rr+tcp://192.168.55.10:9001/?service=LevelSensor'
-    url_lid='rr+tcp://192.168.55.11:9004/?service=LidChecker'
-    url_place='rr+tcp://192.168.55.11:9003/?service=PlaceDetector'
-    url_cup='rr+tcp://192.168.55.11:9002/?service=CupDetector'
+    url_level='rr+tcp://192.168.55.140:9001/?service=LevelSensor' # 192.168.55.10
+    url_lid='rr+tcp://192.168.55.142:9004/?service=LidChecker' # 192.168.55.11
+    url_place='rr+tcp://192.168.55.142:9003/?service=PlaceDetector' # 192.168.55.11
+    url_cup='rr+tcp://192.168.55.142:9002/?service=CupDetector' # 192.168.55.11
 
     RRN.RequestTimeout = 120 # seconds
 
