@@ -70,7 +70,8 @@ class PlaceDetector_impl():
 
 
     def getAvailableLocations(self):
-        print("New getAvailableLocations request!")
+        print("\nNew getAvailableLocations request!")
+        print("------------------------------------")
 
         UNavailable_locations_all = []
         locations_all = [0,1,2,3,4,5,6,7,8,9,10,11]
@@ -95,8 +96,9 @@ class PlaceDetector_impl():
             min_depth = (desired_depth - self.depth_tolerance)
             if (depth_array[y,x] <= max_depth) and (depth_array[y,x] >= min_depth):
                 UNavailable_locations_all.append(itr)
+                print("(" + str((x,y))+ ") is found at Depth:" + str(depth_array[y,x]) + " mm.\n")
             else:
-                print("(" + str((x,y))+ ") could not be found at desired depth: " + str(desired_depth) + "mm. Depth is:" + str(depth_array[y,x]) + " mm.\n")
+                print("(" + str((x,y))+ ") could not be found at desired depth: " + str(desired_depth) + "mm. Depth is:" + str(depth_array[y,x]) + " mm.")
 
         # To get elements which are in locations_all but not in UNavailable_locations_all:
         available_locations_all = list(set(locations_all) - set(UNavailable_locations_all))

@@ -36,7 +36,7 @@ class RobotRequest_impl():
 
         # Speed parameters
         self.v_gnrl = "v300"
-        self.v_pour = "v30"
+        self.v_pour = "v300"
         self.v_uncp = "v30" # v5, v10, v20, v30, v40, v50, v60, v80, v100, v200, v300, v400, v500, v600, v800, v1000, v1500, v2000, v2500
 
         self.z_offset = 0 # mm, offset height for pouring

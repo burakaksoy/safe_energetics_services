@@ -70,7 +70,8 @@ class CupDetector_impl():
 
 
     def getCupLocations(self):
-        print("New getCupLocation request!")
+        print("\nNew getCupLocation request!")
+        print("-----------------------------")
 
         cup_locations = []
         
@@ -94,6 +95,7 @@ class CupDetector_impl():
             min_depth = (desired_depth - self.depth_tolerance)
             if (depth_array[y,x] <= max_depth) and (depth_array[y,x] >= min_depth):
                 cup_locations.append(itr)
+                print("(" + str((x,y))+ ") is found at Depth:" + str(depth_array[y,x]) + " mm.")
             else:
                 print("(" + str((x,y))+ ") could not be found at desired depth: " + str(desired_depth) + "mm. Depth is:" + str(depth_array[y,x]) + " mm.\n")
 
