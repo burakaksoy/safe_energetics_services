@@ -28,6 +28,8 @@ def main():
     c_place = RRN.ConnectService(url_place)
     c_cup = RRN.ConnectService(url_cup)
 
+    no_pouring = True # set True for testing cabinet cup locations quickly, w/out pouring motion
+
     # Assume here, the initializations are done on the GUI,
     # Operator has done the manual product load,
     # -------------------------------------------------------
@@ -213,27 +215,28 @@ def main():
                 # get_input()
                 c_rob_req.go2Hopper() 
 
-                print("Attempting to open the hopper Lid")
-                c_io.openHopperLid()
-                time.sleep(3)
-                print("is Hopper lid open? Answer: " +  str(c_io.isHopperLidOpen()))
-                print("is Hopper lid closed? Answer: " +  str(c_io.isHopperLidClosed()))
-                # TODO: act according to hopper lid opening situation
+                if not no_pouring: # test purposes only
+                    print("Attempting to open the hopper Lid")
+                    c_io.openHopperLid()
+                    time.sleep(3)
+                    print("is Hopper lid open? Answer: " +  str(c_io.isHopperLidOpen()))
+                    print("is Hopper lid closed? Answer: " +  str(c_io.isHopperLidClosed()))
+                    # TODO: act according to hopper lid opening situation
 
-                print("About to start: PourMaterial")
-                # get_input()
-                c_rob_req.PourMaterial() 
-                time.sleep(1)
-                print("About to start: go2Hopper")
-                # get_input()
-                c_rob_req.go2Hopper() 
+                    print("About to start: PourMaterial")
+                    # get_input()
+                    c_rob_req.PourMaterial() 
+                    time.sleep(1)
+                    print("About to start: go2Hopper")
+                    # get_input()
+                    c_rob_req.go2Hopper() 
 
-                print("Attempting to close the hopper Lid")
-                c_io.closeHopperLid()
-                time.sleep(3)
-                print("is Hopper lid open? Answer: " +  str(c_io.isHopperLidOpen()))
-                print("is Hopper lid closed? Answer: " +  str(c_io.isHopperLidClosed()))
-                # TODO: act according to hopper lid opening situation
+                    print("Attempting to close the hopper Lid")
+                    c_io.closeHopperLid()
+                    time.sleep(3)
+                    print("is Hopper lid open? Answer: " +  str(c_io.isHopperLidOpen()))
+                    print("is Hopper lid closed? Answer: " +  str(c_io.isHopperLidClosed()))
+                    # TODO: act according to hopper lid opening situation
 
                 print("About to start: go2CabinetLower")
                 # get_input()
