@@ -36,8 +36,10 @@ class RobotRequest_impl():
 
         # Speed parameters
         self.v_gnrl = "v300"
-        self.v_pour = "v300"
+        self.v_pour = "v30"
         self.v_uncp = "v30" # v5, v10, v20, v30, v40, v50, v60, v80, v100, v200, v300, v400, v500, v600, v800, v1000, v1500, v2000, v2500
+
+        self.z_offset = 0 # mm, offset height for pouring
         
         print("Creating Waypoint Network graph..")
         # Construct a directed graph with n vertices
@@ -105,20 +107,24 @@ class RobotRequest_impl():
                     {'name': 'CU_6B_U', 'pos': [2336.513,-761.937,1420.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CU_6F_D', 'pos': [2263.488,-761.937,1382.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'CU_6F_U', 'pos': [2263.488,-761.937,1420.07], 'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'H_0',     'pos': [1334.925,-1000.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
-                    {'name': 'H_1',     'pos': [1334.925,-1390.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
-                    # {'name': 'H_2',     'pos': [1434.925,-1390.0,2106.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-1,0,0)        }, # old
-                    {'name': 'H_2',     'pos': [1385.30,-1390.0,1992.99],   'quat': [0.3248998,0.32490,0.62804,-0.62805],                 'conf': (-1,-1,0,0)        },
-                    # {'name': 'H_3',     'pos': [1462.925,-1390.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        }, # old
-                    {'name': 'H_3',     'pos': [1383.30,-1390.0,2047.48],   'quat': [0.0,0.0,0.7071068,-0.7071068],                 'conf': (-1,-1,-2,0)        },
-                    # {'name': 'H_4',     'pos': [1462.925,-1390.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        }, # old
-                    {'name': 'H_4',     'pos': [1464.69,-1390.0,2086.1],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        },
+                    
                     {'name': 'UNC_0',   'pos': [2139.22,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'UNC_1',   'pos': [2139.22,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'UNC_2',   'pos': [2136.00,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'UNC_3',   'pos': [2136.00,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
                     {'name': 'UNC_4',   'pos': [1946.16,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
-                    {'name': 'UNC_5',   'pos': [1946.16,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       }
+                    {'name': 'UNC_5',   'pos': [1946.16,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
+                    
+                    # Pouring waypoints
+                    {'name': 'H_0',     'pos': [1334.925,-1000.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
+                    {'name': 'H_1',     'pos': [1334.925,-1390.0,2006.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-2,1,0)        },
+                    {'name': 'H_2',     'pos': [1385.30,-1390.0,1992.99],   'quat': [0.3248998,0.32490,0.62804,-0.62805],                 'conf': (-1,-1,0,0)        },
+                    {'name': 'H_3',     'pos': [1383.30,-1390.0,2047.48],   'quat': [0.0,0.0,0.7071068,-0.7071068],                 'conf': (-1,-1,-2,0)        },
+                    {'name': 'H_4',     'pos': [1464.69,-1390.0,2086.1],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        }
+
+                    # {'name': 'H_2',     'pos': [1434.925,-1390.0,2106.6],   'quat': [0.5,0.5,0.5,-0.5],                 'conf': (-1,-1,0,0)        }, # old
+                    # {'name': 'H_3',     'pos': [1462.925,-1390.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        }, # old
+                    # {'name': 'H_4',     'pos': [1462.925,-1390.0,2106.6],   'quat': [0.5,0.5,-0.5,0.5],                 'conf': (-1,-1,-2,0)        } # old
                 ] 
         self.edges = [   
                     {'source': 'J_HOME',    'target': 'CU_0',   'motion': 'MoveJ',      'speed': self.v_gnrl,   'zone': 'fine',    'wait': '0.5'}, 
@@ -264,7 +270,7 @@ class RobotRequest_impl():
                     {'source': 'CL_6B_D',   'target': 'CL_6B_U',       'motion': 'MoveL',      'speed': self.v_gnrl,    'zone': 'fine',     'wait': '0'},
                 
                     {'source': 'H_0',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
-                    {'source': 'H_1',     'target': 'H_0',   'motion': 'MoveJ',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
+                    {'source': 'H_1',     'target': 'H_0',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
 
                     {'source': 'H_1',     'target': 'H_2',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
                     {'source': 'H_2',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
@@ -377,20 +383,20 @@ class RobotRequest_impl():
 
             log_results = self.mot_prog_client.execute_multimove_motion_program([mp,mp2])
 
-            # OLD LOG_RESULTS
-            # convert to string and use in memory
-            log_results_str = log_results.decode('ascii')
-            # print(log_results_str)
+            # # OLD LOG_RESULTS
+            # # convert to string and use in memory
+            # log_results_str = log_results.decode('ascii')
+            # # print(log_results_str)
 
-            current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:2+6]
-            current_joints = [float(x) for x in current_joints_str]
-            # print("current_joint angles rob1: " + str(current_joints) + " deg.")
+            # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:2+6]
+            # current_joints = [float(x) for x in current_joints_str]
+            # # print("current_joint angles rob1: " + str(current_joints) + " deg.")
             
-            current_joints_str2 = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
-            current_joints2 = [float(x) for x in current_joints_str2]
-            # print("current_joint angles rob2: " + str(current_joints2) + " deg.")
+            # current_joints_str2 = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
+            # current_joints2 = [float(x) for x in current_joints_str2]
+            # # print("current_joint angles rob2: " + str(current_joints2) + " deg.")
 
-            return np.array(current_joints),np.array(current_joints2)  # deg (rob1 angles, rob2 angles)
+            # return np.array(current_joints),np.array(current_joints2)  # deg (rob1 angles, rob2 angles)
 
             # NEW LOG_RESULTS
             current_joints = log_results[-1,2:2+6] 
@@ -406,18 +412,18 @@ class RobotRequest_impl():
             mp.WaitTime(eps)
             log_results = self.mot_prog_client.execute_motion_program(mp)
 
-            # OLD LOG_RESULTS
-            # convert to string and use in memory
-            log_results_str = log_results.decode('ascii')
-            # print(log_results_str)
+            # # OLD LOG_RESULTS
+            # # convert to string and use in memory
+            # log_results_str = log_results.decode('ascii')
+            # # print(log_results_str)
 
-            # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
-            # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
-            current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:8]
-            current_joints = [float(x) for x in current_joints_str]
-            # print("current_joint angles: " + str(current_joints) + " deg.")
+            # # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-6:]
+            # # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[-12:-6]
+            # current_joints_str = log_results_str.splitlines(keepends=False)[-1].split(',')[2:8]
+            # current_joints = [float(x) for x in current_joints_str]
+            # # print("current_joint angles: " + str(current_joints) + " deg.")
 
-            return np.array(current_joints) # deg
+            # return np.array(current_joints) # deg
 
             # NEW LOG_RESULTS
             current_joints = log_results[-1,2:2+6]
