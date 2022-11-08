@@ -399,8 +399,8 @@ class RobotRequest_impl():
             # return np.array(current_joints),np.array(current_joints2)  # deg (rob1 angles, rob2 angles)
 
             # NEW LOG_RESULTS
-            current_joints = log_results[-1,2:2+6] 
-            current_joints2 = log_results[-1,-6:]
+            current_joints = log_results.data[-1,2:2+6] 
+            current_joints2 = log_results.data[-1,-6:]
             # print("current_joint angles rob1: " + str(current_joints) + " deg.")
             # print("current_joint angles rob2: " + str(current_joints2) + " deg.")
             return current_joints, current_joints2
@@ -426,7 +426,7 @@ class RobotRequest_impl():
             # return np.array(current_joints) # deg
 
             # NEW LOG_RESULTS
-            current_joints = log_results[-1,2:2+6]
+            current_joints = log_results.data[-1,2:2+6]
             # print("current_joint angles rob1: " + str(current_joints) + " deg.")
             return current_joints
 
