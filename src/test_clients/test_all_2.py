@@ -28,7 +28,7 @@ def main():
     c_place = RRN.ConnectService(url_place)
     c_cup = RRN.ConnectService(url_cup)
 
-    no_pouring = True # set True for testing cabinet cup locations quickly, w/out pouring motion
+    no_pouring = False # set True for testing cabinet cup locations quickly, w/out pouring motion
 
     # Assume here, the initializations are done on the GUI,
     # Operator has done the manual product load,
@@ -211,11 +211,12 @@ def main():
 
                 # else:
                 print("Lid removal is successful!")
-                print("About to start: go2Hopper")
-                # get_input()
-                c_rob_req.go2Hopper() 
 
                 if not no_pouring: # test purposes only
+                    print("About to start: go2Hopper")
+                    # get_input()
+                    c_rob_req.go2Hopper() 
+
                     print("Attempting to open the hopper Lid")
                     c_io.openHopperLid()
                     time.sleep(3)
