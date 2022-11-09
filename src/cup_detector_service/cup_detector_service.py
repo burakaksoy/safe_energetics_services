@@ -99,6 +99,9 @@ class CupDetector_impl():
             else:
                 print("(" + str((x,y))+ ") could not be found at desired depth: " + str(desired_depth) + "mm. Depth is:" + str(depth_array[y,x]) + " mm.\n")
 
+        # sort cup locations in ascending order
+        cup_locations = cup_locations.sort()
+        
         print("Detected cup locations: ")
         print(str(cup_locations))
 
