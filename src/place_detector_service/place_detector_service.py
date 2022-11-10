@@ -103,7 +103,7 @@ class PlaceDetector_impl():
         # To get elements which are in locations_all but not in UNavailable_locations_all:
         available_locations_all = list(set(locations_all) - set(UNavailable_locations_all))
         # sort available locations in ascending order
-        available_locations_all = available_locations_all.sort() 
+        available_locations_all.sort() 
 
         print("Available locations before filtering: ")
         print(str(available_locations_all))
