@@ -1,7 +1,7 @@
 import numpy as np
 from general_robotics_toolbox import *
 import sys
-from abb_motion_program_exec_client import *
+from abb_motion_program_exec import *
 # from toolbox.robots_def import abb_irb52
 # sys.path.append('./toolbox')
 # from robots_def import *
@@ -214,7 +214,9 @@ def main2():
     mp = MotionProgram(tool=tool0)
 
     mp2 = MotionProgram(tool=tool0)
-
+    mp.SyncMoveOn()
+    mp2.SyncMoveOn()
+   
     # Go home initially
     mp.MoveAbsJ(J_HOME,v100,fine)
     mp.WaitTime(2)
@@ -225,8 +227,8 @@ def main2():
 
     client = MotionProgramExecClient(base_url='http://192.168.55.1:80')
     # client = MotionProgramExecClient()
-    log_results = client.execute_motion_program_multimove([mp,mp2])
-    log_results = client.execute_motion_program_multimove([mp3,mp2])
+    log_results = client.execute_multimove_motion_program([mp,mp2])
+    # log_results = client.execute_motion_program_multimove([mp3,mp2])
 
 if __name__ == "__main__":
     main2()
