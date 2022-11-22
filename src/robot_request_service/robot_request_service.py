@@ -503,6 +503,7 @@ class RobotRequest_impl():
         nearest_wayp = self._get_nearest_two_waypoint_name()[0] # string
         print("nearest_wayp: " + nearest_wayp)
         mp = MotionProgram(tool=self.tool0)
+        mp.SyncMoveOn()
         mp.MoveJ(eval(self._robtarget_str(nearest_wayp)),v100,fine)
 
         # print(mp.get_program_rapid())
@@ -524,8 +525,6 @@ class RobotRequest_impl():
             chunks = cmd.split(';')
 
             mp2 = MotionProgram()
-
-            mp.SyncMoveOn()
             mp2.SyncMoveOn()
 
             for line in chunks:
@@ -552,6 +551,7 @@ class RobotRequest_impl():
         motion_code = self._generate_motion_primitive_code(nearest_wayp,target)
         if len(motion_code) > 0:
             mp = MotionProgram(tool=self.tool0)
+            mp.SyncMoveOn()
             for cmd in motion_code:
                 eval(cmd)
             # Execute the generated motion code
