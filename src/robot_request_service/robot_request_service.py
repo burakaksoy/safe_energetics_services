@@ -36,10 +36,17 @@ class RobotRequest_impl():
 
         # Speed parameters
         self.v_gnrl = "v300"
-        self.v_pour = "v300"
+        self.v_pour = "v30"
         self.v_uncp = "v30" # v5, v10, v20, v30, v40, v50, v60, v80, v100, v200, v300, v400, v500, v600, v800, v1000, v1500, v2000, v2500
 
         self.z_offset = 0 # mm, offset height for pouring
+
+        print("Speed Parameters:")
+        print("v_gnrl: " + str(self.v_gnrl))
+        print("v_pour: " + str(self.v_pour))
+        print("v_uncp: " + str(self.v_uncp))
+
+        print("Z offset: " + str(self.z_offset))
         
         print("Creating Waypoint Network graph..")
         # Construct a directed graph with n vertices
@@ -110,8 +117,8 @@ class RobotRequest_impl():
                     
                     {'name': 'UNC_0',   'pos': [2139.22,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
                     {'name': 'UNC_1',   'pos': [2139.22,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'UNC_2',   'pos': [2136.00,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
-                    {'name': 'UNC_3',   'pos': [2136.00,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
+                    {'name': 'UNC_2',   'pos': [2135.00,-288.59,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)      },
+                    {'name': 'UNC_3',   'pos': [2135.00,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
                     {'name': 'UNC_4',   'pos': [1946.16,-288.59,556.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
                     {'name': 'UNC_5',   'pos': [1946.16,-395.974,572.17],     'quat': [0.707106781,0.0,0.707106781,0.0],  'conf': (-1,-1,0,1)       },
                     
@@ -269,8 +276,8 @@ class RobotRequest_impl():
                     {'source': 'CL_6B_U',   'target': 'CL_6B_D',       'motion': 'MoveL',      'speed': self.v_gnrl,    'zone': 'fine',     'wait': '0'},
                     {'source': 'CL_6B_D',   'target': 'CL_6B_U',       'motion': 'MoveL',      'speed': self.v_gnrl,    'zone': 'fine',     'wait': '0'},
                 
-                    {'source': 'H_0',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
-                    {'source': 'H_1',     'target': 'H_0',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
+                    {'source': 'H_0',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_gnrl,  'zone': 'z1',   'wait': '0'}, 
+                    {'source': 'H_1',     'target': 'H_0',   'motion': 'MoveL',      'speed': self.v_gnrl,  'zone': 'z1',   'wait': '0'}, 
 
                     {'source': 'H_1',     'target': 'H_2',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
                     {'source': 'H_2',     'target': 'H_1',   'motion': 'MoveL',      'speed': self.v_pour,  'zone': 'z1',   'wait': '0'}, 
