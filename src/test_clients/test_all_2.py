@@ -29,7 +29,7 @@ def main():
     c_cup = RRN.ConnectService(url_cup)
 
     no_pouring = False # set True for testing cabinet cup locations quickly, w/out pouring motion
-    no_hopper = True # set True for disabling hopper cover actuation
+    no_hopper = False # set True for disabling hopper cover actuation
 
     # Assume here, the initializations are done on the GUI,
     # Operator has done the manual product load,
