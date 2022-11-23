@@ -19,7 +19,6 @@ def main():
 
         #Start up Robot Raconteur and connect, standard by this point    
         c = RRN.ConnectService(url)
-        print(c )
         if ( c ):
         
             if cmd == "isLevelLow()":
@@ -38,7 +37,7 @@ def main():
         else:
             print("Open Failed " + url )
     else:
-        printf("No Command Sent" )
+        print("No Command Sent" )
 
 if __name__ == '__main__':
     main()

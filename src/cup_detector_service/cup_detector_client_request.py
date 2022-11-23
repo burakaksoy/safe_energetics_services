@@ -10,10 +10,7 @@ def main():
     cmd = ""
     
     if argc == 2 :
-        cmd = sys.argv[1] + "()"
-        
-    if argc == 3 :
-        cmd = sys.argv[1] + "(" + sys.argv[2] + ")"
+        cmd = sys.argv[1]
     
     if len(cmd) > 0 :
         

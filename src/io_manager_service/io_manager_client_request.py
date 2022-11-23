@@ -10,10 +10,7 @@ def main():
     cmd = ""
     
     if argc == 2 :
-        cmd = sys.argv[1] + "()"
-        
-    if argc == 3 :
-        cmd = sys.argv[1] + "(" + sys.argv[2] + ")"
+        cmd = sys.argv[1]
     
     if len(cmd) > 0 :
         url='rr+tcp://localhost:9005/?service=IOManager'
@@ -25,10 +22,9 @@ def main():
 
         try: 
             result = eval('c.' + str(cmd))
-            if result is not None:
-                print(str(result))
+            print("OK")
         except:
-            print("Failed to Evaluate the requested command")
+            print("FAILED")
             pass
 
 if __name__ == '__main__':

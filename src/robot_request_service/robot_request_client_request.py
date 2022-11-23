@@ -19,7 +19,7 @@ import sys
 
 #Main program
 def main():
-
+    RRN.RequestTimeout = 120 # seconds
     url='rr+tcp://localhost:9006/?service=RobotRequest'
     # url='rr+tcp://192.168.1.142:9006/?service=RobotRequest'
     # url='rr+tcp://192.168.55.11:9006/?service=RobotRequest'
@@ -33,13 +33,12 @@ def main():
     if argc == 2 :
         cmd = sys.argv[1]
         
-   if ( len(cmd) > 0 )
+    if ( len(cmd) > 0 ):
         try: 
             result = eval('c.' + str(cmd))
-            if result is not None:
-                print(str(result))
+            print("OK")
         except:
-            print("Failed to Evaluate the requested command")
+            print("FAILED")
             pass
 
 if __name__ == '__main__':
