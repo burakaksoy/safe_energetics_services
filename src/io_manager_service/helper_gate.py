@@ -4,7 +4,7 @@ class Gate(object):
         self.inputs = inputs
         self.outputs = outputs
 
-        self.lock_state = True
+        self.lock_state = False
 
     def lock(self):
         pin = self.outputs['gate']
