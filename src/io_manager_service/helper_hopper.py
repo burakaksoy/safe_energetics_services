@@ -40,7 +40,7 @@ class Hopper(object):
 
     def isPressureGood(self):
         pin = self.inputs['hopperPressureSensor']
-        # return bool(self.rapid.get_digital_io(pin))
-        return True # temporary, change later
+        return bool(self.rapid.get_digital_io(pin))
+        # return True # temporary, change later
 
         

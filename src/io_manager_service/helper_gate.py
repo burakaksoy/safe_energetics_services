@@ -8,7 +8,7 @@ class Gate(object):
 
     def lock(self):
         pin = self.outputs['gate']
-        self.rapid.set_digital_io(pin, 1)
+        self.rapid.set_digital_io(pin, 0)
         
         self.lock_state = True
 
@@ -17,7 +17,7 @@ class Gate(object):
 
     def unlock(self):
         pin = self.outputs['gate']
-        self.rapid.set_digital_io(pin, 0)
+        self.rapid.set_digital_io(pin, 1)
 
         self.lock_state = False
 
