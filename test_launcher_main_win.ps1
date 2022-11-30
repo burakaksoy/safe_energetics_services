@@ -5,17 +5,19 @@ wt -w 0 nt Powershell -NoExit -c {
     python.exe .\robot_request_service.py
 }
 
+Start-Sleep -Seconds 1.5
+
 # IO module service
 wt -w 0 nt Powershell -NoExit -c {
-    Start-Sleep -Seconds 1.5
     $Host.UI.RawUI.WindowTitle = "IO Service"
     cd ~\safe_energetics_services\src\io_manager_service
     python.exe .\io_manager_service.py
 }
 
+Start-Sleep -Seconds 3.0
+
 # Robot request client example
 wt -w 0 nt Powershell -NoExit -c {
-    Start-Sleep -Seconds 3.0
     $Host.UI.RawUI.WindowTitle = "Robot Request Example Client"
     cd ~\safe_energetics_services\src\robot_request_service
     python.exe .\robot_request_client_interactive.py
@@ -23,7 +25,6 @@ wt -w 0 nt Powershell -NoExit -c {
 
 # IO module client example
 wt -w 0 nt Powershell -NoExit -c {
-    Start-Sleep -Seconds 3.0
     $Host.UI.RawUI.WindowTitle = "IO Example Client"
     cd ~\safe_energetics_services\src\io_manager_service
     python.exe .\io_manager_client_interactive.py
