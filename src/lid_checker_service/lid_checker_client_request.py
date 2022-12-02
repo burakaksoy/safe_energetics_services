@@ -24,23 +24,23 @@ def main():
         if cmd == "isLidOff()" :
             lid_off = c.isLidOff()
             if lid_off:
-                print("OFF")
+                print("TRUE")
             else:
-                print("NOT OFF")
+                print("FALSE")
 
         if cmd == "isLidOn()" :
             lid_on = c.isLidOn()
             if lid_on:
-                print("ON")
+                print("TRUE")
             else:
-                print("NOT ON")
+                print("FALSE")
 
         if cmd == "isGraspedCorrectly()" :
             grasped_correctly = c.isGraspedCorrectly()
             if grasped_correctly:
-                print("CORRECT")
+                print("TRUE")
             else:
-                print("NOT CORRECT")
+                print("FALSE")
 
 if __name__ == '__main__':
     main()

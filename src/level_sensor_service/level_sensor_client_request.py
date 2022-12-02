@@ -24,15 +24,15 @@ def main():
             if cmd == "isLevelLow()":
                 level_low = c.isLevelLow()
                 if level_low:
-                    print("LOW")
+                    print("TRUE")
                 else:
-                    print("NOT LOW")
+                    print("FALSE")
             if cmd == "isLevelHigh()":
                 level_high = c.isLevelHigh()
                 if level_high:
-                    print("HIGH")
+                    print("TRUE")
                 else:
-                    print("NOT HIGH")
+                    print("FALSE")
         
         else:
             print("Open Failed " + url )
