@@ -22,7 +22,9 @@ def main():
 
         try: 
             result = eval('c.' + str(cmd))
-            print("OK")
+            if result is None:
+                result = "OK"
+            print(result)
         except:
             print("FAILED")
             pass
