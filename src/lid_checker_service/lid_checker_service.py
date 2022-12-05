@@ -173,7 +173,7 @@ def main():
     port_num = 9004
     parameter_file = "./lid_checker_service.csv"
     ros_topic = "/depth_to_rgb/hw_registered/image_rect_raw" #RGB version: "/rgb/image_rect_color"
-    depth_tolerance = 10 #mm
+    depth_tolerance = 13 #mm
 
     # RR.ServerNodeSetup("NodeName", TCP listen port, optional set of flags as parameters)
     with RR.ServerNodeSetup("experimental.lid_checker_service", port_num) as node_setup:
