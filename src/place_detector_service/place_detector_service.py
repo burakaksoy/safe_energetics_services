@@ -127,7 +127,7 @@ def main():
     port_num = 9003
     parameter_file = "./place_detector_service.csv"
     ros_topic = "/depth_to_rgb/hw_registered/image_rect_raw" #RGB version: "/rgb/image_rect_color"
-    depth_tolerance = 20 #mm
+    depth_tolerance = 15 #mm
 
     # RR.ServerNodeSetup("NodeName", TCP listen port, optional set of flags as parameters)
     with RR.ServerNodeSetup("experimental.place_detector_service", port_num) as node_setup:
