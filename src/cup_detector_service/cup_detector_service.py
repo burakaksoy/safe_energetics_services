@@ -111,7 +111,7 @@ def main():
     port_num = 9002
     parameter_file = "./cup_detector_service.csv"
     ros_topic = "/depth_to_rgb/hw_registered/image_rect_raw" #RGB version: "/rgb/image_rect_color"
-    depth_tolerance = 15 #mm
+    depth_tolerance = 35 #mm
 
     # RR.ServerNodeSetup("NodeName", TCP listen port, optional set of flags as parameters)
     with RR.ServerNodeSetup("experimental.cup_detector_service", port_num) as node_setup:
